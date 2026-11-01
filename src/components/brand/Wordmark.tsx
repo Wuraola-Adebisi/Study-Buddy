@@ -1,0 +1,2 @@
+type WordmarkProps={light?:boolean}
+export function Wordmark({light=false}:WordmarkProps){return <span className={`inline-flex items-center gap-2 font-display text-[25px] font-bold tracking-[-1.8px] ${light?'text-white':'text-ink'}`}><span className="grid h-7 w-7 place-items-center rounded-[9px] bg-blue text-[15px] font-bold text-white">m</span>morrow<span className="-ml-2 text-coral">.</span></span>}
