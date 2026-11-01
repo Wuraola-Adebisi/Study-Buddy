@@ -50,7 +50,6 @@ export function HomePage({ onEnter }: { onEnter: () => void }) {
                 How it works
               </a>
             </div>
-            <p className="mt-6 text-sm text-muted">Your learning spaces are saved in this browser.</p>
           </div>
           <HeroArtwork />
         </section>
@@ -99,7 +98,7 @@ export function HomePage({ onEnter }: { onEnter: () => void }) {
             </article>
             <article className="rounded-xl bg-coral-soft p-7 lg:p-9">
               <h3 className="text-2xl font-bold">Materials shelf</h3>
-              <p className="mt-2 text-base text-muted">A place for notes and reading next to the topic. File upload is not connected yet.</p>
+              <p className="mt-2 text-base text-muted">Keep useful notes and reading alongside the topics you are learning.</p>
             </article>
           </div>
         </section>
