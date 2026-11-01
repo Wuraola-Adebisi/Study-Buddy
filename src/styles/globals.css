@@ -157,3 +157,10 @@ h1,h2,h3{font-family:var(--font-display)}
 .workspace-footer{max-width:1440px;margin:45px auto 0;padding:22px clamp(22px,5vw,76px) 28px;border-top:1px solid var(--color-line);color:var(--color-muted);font-size:10px;letter-spacing:.04em}
 .workspace-footer span{color:var(--color-coral);padding:0 4px}
 @media(max-width:760px){.workspace-footer{margin-top:24px;padding-top:18px}}
+
+.morrow-site #faq{max-width:1440px;padding:88px 5.2vw 104px}
+.morrow-site #faq>div{grid-template-columns:.8fr 1.2fr;gap:10vw}
+.morrow-site #faq summary{font-family:var(--font-display);font-size:17px;letter-spacing:-.025em}
+.morrow-site #faq details{padding:24px 0}
+.morrow-site #faq details>p{font-size:13px;line-height:1.8;color:var(--color-muted)}
+@media(max-width:760px){.morrow-site #faq{padding:65px 20px 78px}.morrow-site #faq>div{grid-template-columns:1fr;gap:28px}}
