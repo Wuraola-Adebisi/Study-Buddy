@@ -78,7 +78,7 @@ export const useLearningStore = create<LearningState>()(
       version: 2,
       migrate: (persisted: unknown) => {
         if (!persisted || typeof persisted !== 'object') {
-          return { topics: initialTopics, activeTopicId: 1, sessions: {}, plan: [] } as LearningState
+          return { topics: initialTopics, activeTopicId: 1, sessions: {}, plan: [] } as unknown as LearningState
         }
         const saved = persisted as Partial<LearningState>
         return {
@@ -86,7 +86,7 @@ export const useLearningStore = create<LearningState>()(
           activeTopicId: typeof saved.activeTopicId === 'number' ? saved.activeTopicId : 1,
           sessions: saved.sessions && typeof saved.sessions === 'object' ? saved.sessions : {},
           plan: Array.isArray(saved.plan) ? saved.plan : [],
-        } as LearningState
+        } as unknown as LearningState
       },
     },
   ),
