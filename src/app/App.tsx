@@ -12,7 +12,8 @@ import { useLearningStore } from '../store/useLearningStore'
 export default function App() {
   const [inWorkspace, setInWorkspace] = useState(false)
   const [page, setPage] = useState<WorkspacePage>('overview')
-  const setActiveTopic = useLearningStore((s) => s.setActiveTopic)\n  const activeTopicId = useLearningStore((s) => s.activeTopicId)
+  const setActiveTopic = useLearningStore((s) => s.setActiveTopic)
+  const activeTopicId = useLearningStore((s) => s.activeTopicId)
   const mainRef = useRef<HTMLElement>(null)
 
   /* Each workspace page starts at the top, with focus moved to the content. */
