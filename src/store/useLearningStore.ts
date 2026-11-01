@@ -22,7 +22,7 @@ const initialTopics: LearningTopic[] = [
   { id: 2, name: 'The psychology of habits', area: 'Psychology', progress: 26, concepts: 5, updated: 'Yesterday', tone: 'coral' },
   { id: 3, name: 'Visual composition', area: 'Design', progress: 18, concepts: 3, updated: 'This week', tone: 'yellow' },
   { id: 4, name: 'Personal finance foundations', area: 'Finance', progress: 12, concepts: 2, updated: 'This week', tone: 'lilac' },
-  { id: 5, name: 'Climate and ecosystems', area: 'Science', progress: 0, concepts: 0, updated: 'Not started', tone: 'green' },
+  { id: 5, name: 'Climate and ecosystems', area: 'Science', progress: 0, concepts: 0, updated: 'Not started', tone: 'blue' },
 ]
 
 const starterMessage = (name: string): ChatMessage => ({
