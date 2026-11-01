@@ -8,7 +8,7 @@ const modes: LearningMode[] = ['Explain', 'Practice', 'Quiz', 'Review', 'Explore
 const prompts: Record<LearningMode, string[]> = {
   Explain: ['Explain the core idea simply', 'Can you use an analogy?', 'What are the common misconceptions?'],
   Practice: ['Give me a beginner exercise', 'Walk me through an example', 'Make it a little harder'],
-  Quiz: ['Start a 3-question quiz', 'Ask me a question', 'Explain why the answer is correct'],
+  Quiz: ['Start a quick quiz', 'Ask me a question', 'Explain why the answer is correct'],
   Review: ['Summarise the key ideas', 'What should I remember?', 'Help me recall without notes'],
   Explore: ['How does this connect to real life?', 'What should I learn next?', 'Go one level deeper'],
 }
@@ -44,11 +44,19 @@ const practice: Record<Domain, string> = {
 
 const quiz: Record<Domain, string> = {
   code: 'Quick check: when debugging a small function, which is the strongest first step? A) Rewrite it from scratch. B) Reproduce the issue with a small input and inspect the expected vs actual result. C) Add more features. Reply A, B, or C and explain your choice.',
-  psychology: 'Quick check: to understand a repeated behaviour, what is most useful to examine first? A) Label the person. B) Look at context, trigger, behaviour, and consequence. C) Assume one cause. Reply A, B, or C and explain.',
-  design: 'Quick check: what most directly helps establish visual hierarchy? A) Make every element equally prominent. B) Use contrast, scale, spacing, and placement intentionally. C) Add more decorative elements. Reply A, B, or C and explain.',
-  finance: 'Quick check: a budget looks balanced monthly, but a bill arrives before payday. What should you inspect? A) Only monthly totals. B) Cash-flow timing and money already committed. C) Ignore the due date. Reply A, B, or C and explain.',
-  science: 'Quick check: what makes a scientific explanation stronger? A) It sounds intuitive. B) It is testable and consistent with evidence. C) It cannot be challenged. Reply A, B, or C and explain.',
+  psychology: 'Quick check: to understand a repeated behaviour, what is most useful to examine first? A) Label the person. B) Assume one cause. C) Look at context, trigger, behaviour, and consequence. Reply A, B, or C and explain.',
+  design: 'Quick check: what most directly helps establish visual hierarchy? A) Use contrast, scale, spacing, and placement intentionally. B) Make every element equally prominent. C) Add more decorative elements. Reply A, B, or C and explain.',
+  finance: 'Quick check: a budget looks balanced monthly, but a bill arrives before payday. What should you inspect? A) Only monthly totals. B) Ignore the due date. C) Cash-flow timing and money already committed. Reply A, B, or C and explain.',
+  science: 'Quick check: what makes a scientific explanation stronger? A) It is testable and consistent with evidence. B) It sounds intuitive. C) It cannot be challenged. Reply A, B, or C and explain.',
   general: 'Quick check: which approach usually builds durable understanding? A) Reread until familiar. B) Retrieve the idea from memory and apply it to a new example. C) Memorise isolated words. Reply A, B, or C and explain.',
+}
+const quizAnswers: Record<Domain, string> = {
+  code: 'b',
+  psychology: 'c',
+  design: 'a',
+  finance: 'c',
+  science: 'a',
+  general: 'b',
 }
 
 function isQuizAnswer(input: string) {
@@ -57,8 +65,8 @@ function isQuizAnswer(input: string) {
 
 function responseFor(mode: LearningMode, domain: Domain, input: string): string {
   const text = input.toLowerCase()
-  if (isQuizAnswer(input)) {
-    return text.trim().startsWith('b')
+  if (mode === 'Quiz' && isQuizAnswer(input)) {
+    return text.trim().startsWith(quizAnswers[domain])
       ? 'That’s the strongest choice. The important part is the reasoning behind it, not just selecting a letter. Can you explain the principle in your own words?'
       : 'Not quite. Consider which option relies on evidence, context, and a process you can actually test. Want to try again, or should I unpack each option?'
   }
@@ -127,7 +135,7 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     }
     setMessages((current) => [...current, userMessage, assistantMessage])
     setDraft('')
-    const answeredQuizCorrectly = mode === 'Quiz' && isQuizAnswer(content) && content.trim().toLowerCase().startsWith('b')
+    const answeredQuizCorrectly = mode === 'Quiz' && isQuizAnswer(content) && content.trim().toLowerCase().startsWith(quizAnswers[domain])
     recordActivity(activeId ?? topic?.id ?? 1, answeredQuizCorrectly ? 1 : 0)
     setActivityTotal((count) => count + 1)
   }
