@@ -24,17 +24,6 @@ export function LogoMark({ className = 'h-9 w-9' }: { className?: string }) {
   )
 }
 
-export function Wordmark({ onDark = false }: { onDark?: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2.5 font-display text-2xl font-bold tracking-tight ${
-        onDark ? 'text-on-night' : 'text-ink'
-      }`}
-    >
-      <LogoMark className="h-10 w-10" />
-      <span>
-        morrow<span className="text-coral">.</span>
-      </span>
-    </span>
-  )
+export function Wordmark() {
+  return <LogoMark className="h-10 w-10" />
 }
