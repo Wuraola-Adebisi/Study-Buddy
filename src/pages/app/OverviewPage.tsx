@@ -1,6 +1,82 @@
-import {ArrowRight,ArrowUpRight,Clock3,Plus,Target} from 'lucide-react'
-import {useState} from 'react'
-import {useLearningStore} from '../../store/useLearningStore'
-import type {LearningTopic} from '../../types'
-import type {WorkspacePage} from '../../components/app/AppHeader'
-export function OverviewPage({onNavigate,onStudy}:{onNavigate:(p:WorkspacePage)=>void;onStudy:(id:number)=>void}){const topics=useLearningStore(s=>s.topics);const addTopic=useLearningStore(s=>s.addTopic);const[show,setShow]=useState(false);const[name,setName]=useState('');const[area,setArea]=useState('Something new');const create=()=>{if(!name.trim())return;addTopic(name.trim(),area);setName('');setShow(false)};return <div className="mx-auto max-w-[1180px] px-5 py-10 md:px-9 md:py-14"><div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="mb-3 text-[11px] font-bold uppercase tracking-[.17em] text-blue">Your learning, in progress</p><h1 className="font-display text-[clamp(38px,5vw,58px)] font-semibold leading-none tracking-[-2.8px]">Good to have you back.</h1><p className="mt-4 text-[14px] text-muted">What would you like to make sense of today?</p></div><button onClick={()=>setShow(true)} className="inline-flex h-12 items-center justify-center gap-2 self-start rounded-full bg-blue px-6 text-[13px] font-bold text-white"><Plus size={16}/> New learning space</button></div><section className="mb-12 grid gap-4 md:grid-cols-[1.4fr_.6fr]"><button onClick={()=>onStudy(topics[0]?.id??1)} className="group relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-[24px] bg-ink p-7 text-left text-white md:p-9"><div className="absolute -right-12 -top-16 h-64 w-64 rounded-full border border-white/15"/><div className="absolute right-12 top-9 h-36 w-36 rounded-full border border-dashed border-yellow/60"/><div className="relative"><span className="text-[10px] font-bold uppercase tracking-[.18em] text-yellow">Pick up where you left off</span><h2 className="mt-5 max-w-[460px] font-display text-[clamp(25px,3.4vw,40px)] font-semibold leading-[1.08] tracking-[-1.4px]">{topics[0]?.name??'Start a new learning space'}</h2></div><div className="relative flex items-center justify-between"><span className="text-[12px] text-white/60">Continue your last topic</span><span className="grid h-11 w-11 place-items-center rounded-full bg-yellow text-ink"><ArrowUpRight size={18}/></span></div></button><div className="flex flex-col justify-between rounded-[24px] bg-green p-7"><div className="flex items-center justify-between"><span className="text-[10px] font-bold uppercase tracking-[.16em]">A steady rhythm</span><Clock3 size={18}/></div><div><p className="font-display text-[44px] font-semibold tracking-[-2px]">4 days</p><p className="text-[12px] text-ink/65">You have made time to learn this week.</p></div><div className="flex gap-2">{['M','T','W','T','F','S','S'].map((d,i)=><span key={i} className={`grid h-7 w-7 place-items-center rounded-full text-[10px] font-bold ${i<4?'bg-ink text-white':'border border-ink/15 text-ink/45'}`}>{d}</span>)}</div></div></section><div className="mb-5 flex items-end justify-between"><div><h2 className="font-display text-[25px] font-semibold tracking-[-.8px]">Your learning spaces</h2><p className="mt-1 text-[12px] text-muted">Each one holds a subject you're working through.</p></div><button onClick={()=>onNavigate('progress')} className="hidden items-center gap-2 text-[12px] font-semibold text-blue sm:flex">See your progress <ArrowRight size={14}/></button></div><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{topics.map((topic:LearningTopic,i)=><button key={topic.id} onClick={()=>onStudy(topic.id)} className="group rounded-[21px] border border-line bg-white p-6 text-left transition hover:-translate-y-1 hover:shadow-xl"><div className="mb-8 flex items-center justify-between"><span className={`rounded-full px-3 py-1.5 text-[10px] font-bold ${['bg-blue-soft','bg-[#fbe3dc]','bg-[#f8edc9]','bg-lilac'][i%4]}`}>{topic.area}</span><ArrowUpRight size={17} className="text-muted group-hover:text-blue"/></div><h3 className="min-h-[55px] font-display text-[20px] font-semibold leading-tight">{topic.name}</h3><div className="mt-7 flex items-center justify-between text-[11px] text-muted"><span>{topic.concepts} concepts explored</span><strong className="text-ink">{topic.progress}%</strong></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-panel"><div className="h-full rounded-full bg-blue" style={{width:`${topic.progress}%`}}/></div></button>)}</div><section className="mt-12 flex flex-col justify-between gap-6 rounded-[22px] border border-line bg-white p-7 md:flex-row md:items-center md:px-9"><div className="flex items-start gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-[14px] bg-lilac"><Target size={19}/></span><div><h3 className="font-display text-[19px] font-semibold">Try putting an idea into your own words.</h3><p className="mt-1 max-w-[520px] text-[12px] leading-6 text-muted">Explaining something from memory is a useful way to find what you understand and what needs another look.</p></div></div><button onClick={()=>onStudy(topics[0]?.id??1)} className="inline-flex items-center gap-2 self-start text-[12px] font-bold text-blue">Practise an idea <ArrowRight size={15}/></button></section>{show&&<div className="fixed inset-0 z-50 grid place-items-center bg-ink/40 p-5"><form onSubmit={e=>{e.preventDefault();create()}} className="w-full max-w-[440px] rounded-[24px] bg-paper p-7 shadow-2xl"><div className="mb-6 flex items-center justify-between"><h2 className="font-display text-[24px] font-semibold">Start a learning space</h2><button type="button" onClick={()=>setShow(false)} className="text-muted">Close</button></div><label htmlFor="topic-name" className="mb-2 block text-[12px] font-semibold">What do you want to learn?</label><input id="topic-name" value={name} onChange={e=>setName(e.target.value)} required className="h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px]" placeholder="e.g. The basics of photography"/><label htmlFor="topic-area" className="mb-2 mt-5 block text-[12px] font-semibold">Area</label><input id="topic-area" value={area} onChange={e=>setArea(e.target.value)} className="h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px]"/><button className="mt-6 h-12 w-full rounded-full bg-blue text-[13px] font-bold text-white">Create learning space</button></form></div>}</div>}
+import { ArrowRight, ArrowUpRight, BookOpen, Clock3, Plus, Search, X } from 'lucide-react'
+import { useMemo, useState, type FormEvent } from 'react'
+import { useLearningStore } from '../../store/useLearningStore'
+import type { LearningTopic } from '../../types'
+import type { WorkspacePage } from '../../components/app/AppHeader'
+
+const suggestions = ['Understand a difficult concept', 'Learn something from scratch', 'Prepare for an upcoming test']
+
+export function OverviewPage({ onNavigate, onStudy }: { onNavigate: (page: WorkspacePage) => void; onStudy: (id: number) => void }) {
+  const topics = useLearningStore((state) => state.topics)
+  const addTopic = useLearningStore((state) => state.addTopic)
+  const [showCreate, setShowCreate] = useState(false)
+  const [name, setName] = useState('')
+  const [area, setArea] = useState('Something new')
+  const [search, setSearch] = useState('')
+  const filteredTopics = useMemo(() => topics.filter((topic) => `${topic.name} ${topic.area}`.toLowerCase().includes(search.toLowerCase())), [topics, search])
+  const recentTopic = topics[0]
+
+  const createSpace = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!name.trim()) return
+    addTopic(name.trim(), area.trim() || 'Something new')
+    setName('')
+    setArea('Something new')
+    setShowCreate(false)
+  }
+
+  return (
+    <main className="dashboard-page">
+      <div className="dashboard-welcome">
+        <div><h1>Where would you like to begin?</h1><p>Your learning space is ready when you are. Pick up a topic or start something new.</p></div>
+        <button className="dashboard-create" onClick={() => setShowCreate(true)}><Plus size={18} /> New learning space</button>
+      </div>
+
+      <section className="dashboard-start">
+        <div className="dashboard-start-copy">
+          <div className="dashboard-start-icon"><BookOpen size={22} /></div>
+          <div><h2>Start with a question.</h2><p>Choose a subject, ask about an idea, or tell Morrow what you want to get better at.</p></div>
+          <button onClick={() => recentTopic ? onStudy(recentTopic.id) : setShowCreate(true)} className="dashboard-start-button">{recentTopic ? 'Continue learning' : 'Create your first space'} <ArrowUpRight size={17} /></button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85" alt="Notebook open with handwritten study notes" />
+      </section>
+
+      <section className="dashboard-spaces">
+        <div className="dashboard-section-heading">
+          <div><h2>Your learning spaces</h2><p>Keep different subjects and goals in their own place.</p></div>
+          <label className="dashboard-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Find a learning space" aria-label="Find a learning space" /></label>
+        </div>
+        {filteredTopics.length ? <div className="dashboard-topic-grid">
+          {filteredTopics.map((topic: LearningTopic, index: number) => (
+            <article key={topic.id} className={`dashboard-topic topic-${index % 4}`}>
+              <button className="dashboard-topic-open" onClick={() => onStudy(topic.id)} aria-label={`Open ${topic.name}`}>
+                <span className="dashboard-topic-area">{topic.area}</span><ArrowUpRight size={18} />
+                <h3>{topic.name}</h3>
+                <span className="dashboard-topic-meta">{topic.concepts} ideas explored <span>{topic.progress}%</span></span>
+                <span className="dashboard-progress"><span style={{ width: `${topic.progress}%` }} /></span>
+                <span className="dashboard-topic-continue">Open learning space <ArrowRight size={15} /></span>
+              </button>
+            </article>
+          ))}
+        </div> : <div className="dashboard-empty"><p>{search ? 'No learning spaces match that search.' : 'Your first learning space is waiting.'}</p><button onClick={() => setShowCreate(true)}>Create a learning space <ArrowRight size={16} /></button></div>}
+      </section>
+
+      <section className="dashboard-next">
+        <div className="dashboard-next-copy"><Clock3 size={19} /><div><h2>Not sure where to start?</h2><p>Choose a starting point. You can shape the session as you go.</p></div></div>
+        <div className="dashboard-suggestions">{suggestions.map((suggestion) => <button key={suggestion} onClick={() => recentTopic ? onStudy(recentTopic.id) : setShowCreate(true)}>{suggestion}<ArrowUpRight size={15} /></button>)}</div>
+      </section>
+
+      {showCreate && <div className="dashboard-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowCreate(false) }}>
+        <form className="dashboard-dialog" onSubmit={createSpace} aria-labelledby="create-space-title">
+          <div className="dashboard-dialog-heading"><div><span className="dashboard-dialog-icon"><Plus size={19} /></span><h2 id="create-space-title">Create a learning space</h2></div><button type="button" onClick={() => setShowCreate(false)} aria-label="Close dialog"><X size={20} /></button></div>
+          <p>Give this subject a name. You can change direction as you learn.</p>
+          <label htmlFor="space-name">What would you like to learn?</label>
+          <input id="space-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="e.g. The science of sleep" required autoComplete="off" />
+          <label htmlFor="space-area">Subject or area</label>
+          <input id="space-area" value={area} onChange={(event) => setArea(event.target.value)} placeholder="e.g. Science, Design, History" />
+          <div className="dashboard-dialog-actions"><button type="button" className="dialog-cancel" onClick={() => setShowCreate(false)}>Cancel</button><button type="submit" className="dialog-submit">Create space <ArrowRight size={16} /></button></div>
+        </form>
+      </div>}
+    </main>
+  )
+}
