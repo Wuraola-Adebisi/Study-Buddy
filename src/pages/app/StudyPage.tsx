@@ -19,8 +19,8 @@ function domainFor(topic: { name: string; area: string }): Domain {
   if (/javascript|program|code|develop|react|html|css|algorithm/.test(text)) return 'code'
   if (/psych|habit|behavio|mind|emotion|learning/.test(text)) return 'psychology'
   if (/design|composition|visual|typograph|colour|color|layout/.test(text)) return 'design'
-  if /finance|money|budget|saving|invest|econom/.test(text)) return 'finance'
-  if /science|climate|biology|ecosystem|physics|chemistry/.test(text)) return 'science'
+  if (/finance|money|budget|saving|invest|econom/.test(text)) return 'finance'
+  if (/science|climate|biology|ecosystem|physics|chemistry/.test(text)) return 'science'
   return 'general'
 }
 
@@ -66,7 +66,9 @@ function responseFor(mode: LearningMode, domain: Domain, input: string, turn: nu
   if (/misconception|mistake|confus/.test(text)) return 'A common trap is remembering a label while missing the relationship underneath it. Another is treating a useful rule as universal. Ask: what conditions make this explanation work, and what evidence would show that it does not?'
   if (/next|related|connect|deeper/.test(text)) return 'A productive next step is to compare this idea with a neighbouring concept: what do they share, and where do their assumptions differ? The contrast often makes both easier to understand.'
   switch (mode) {
-    case 'Explain': return `${explain[domain]}\n\nWhich part should we zoom in on: the definition, how it works, or a practical example?`
+    case 'Explain': return `${explain[domain]}
+
+Which part should we zoom in on: the definition, how it works, or a practical example?`
     case 'Practice': return practice[domain]
     case 'Quiz': return quiz[domain]
     case 'Review': return 'Let’s use active recall. Without checking notes, write one sentence explaining the main idea, one example, and one question you still have. I’ll help you examine your response.'
@@ -89,7 +91,8 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     id: 1, role: 'assistant',
     content: `Welcome to **${topic?.name ?? 'your learning space'}**. Choose a mode above, or tell me what you are trying to understand. We can work through an idea, practise it, or check what you remember.`,
   }])
-  const [error, setError] = useState('')\n  const [activityTotal, setActivityTotal] = useState(saved?.activityCount ?? 0)
+  const [error, setError] = useState('')
+  const [activityTotal, setActivityTotal] = useState(saved?.activityCount ?? 0)
   const logRef = useRef<HTMLDivElement>(null)
   const activityCount = activityTotal
 
@@ -122,7 +125,8 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     }
     setMessages((current) => [...current, userMessage, assistantMessage])
     setDraft('')
-    recordActivity(activeId ?? topic?.id ?? 1, mode === 'Quiz' || mode === 'Practice' ? 1 : 0)\n    setActivityTotal((count) => count + 1)
+    recordActivity(activeId ?? topic?.id ?? 1, mode === 'Quiz' || mode === 'Practice' ? 1 : 0)
+    setActivityTotal((count) => count + 1)
   }
 
   const changeMode = (next: LearningMode) => {
