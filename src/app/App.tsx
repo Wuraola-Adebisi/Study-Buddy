@@ -1,0 +1,11 @@
+import {useState} from 'react'
+import {AppHeader,type WorkspacePage} from '../components/app/AppHeader'
+import {HomePage} from '../pages/marketing/HomePage'
+import {OverviewPage} from '../pages/app/OverviewPage'
+import {StudyPage} from '../pages/app/StudyPage'
+import {MaterialsPage} from '../pages/app/MaterialsPage'
+import {ProgressPage} from '../pages/app/ProgressPage'
+import {PlanPage} from '../pages/app/PlanPage'
+import {SettingsPage} from '../pages/app/SettingsPage'
+import {useLearningStore} from '../store/useLearningStore'
+export default function App(){const[inWorkspace,setInWorkspace]=useState(false);const[page,setPage]=useState<WorkspacePage>('overview');const setActiveTopic=useLearningStore(s=>s.setActiveTopic);const openStudy=(id:number)=>{setActiveTopic(id);setPage('study');setInWorkspace(true)};if(!inWorkspace)return <HomePage onEnter={()=>{setPage('overview');setInWorkspace(true)}}/>;return <div className="min-h-screen bg-paper text-ink"><AppHeader page={page} onNavigate={setPage} onExit={()=>setInWorkspace(false)}/>{page==='overview'&&<OverviewPage onNavigate={setPage} onStudy={openStudy}/>}{page==='study'&&<StudyPage onBack={()=>setPage('overview')}/>}{page==='materials'&&<MaterialsPage/>}{page==='progress'&&<ProgressPage onStudy={openStudy}/>}{page==='plan'&&<PlanPage/>}{page==='settings'&&<SettingsPage/>}<footer className="border-t border-line px-5 py-7 text-center text-[10px] text-muted">Morrow · Make room to understand.</footer></div>}

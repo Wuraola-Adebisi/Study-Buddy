@@ -1,9 +1,16 @@
 # Morrow
 
-A thoughtful AI learning companion. Learn from your own materials or explore a topic, with a conversation that remembers where you left off.
+Morrow is a learning companion for people learning anything. Start with a question or a topic, learn through conversation, practise what you understand, and return to a session with context.
 
-## Current build
-This repository currently contains a frontend-first MVP with a mocked learning companion and local demo state. No external AI provider or backend is connected yet.
+## Product experience
+- Public homepage explaining the product, learning loop, and different ways to work through a subject.
+- Workspace overview with persistent learning spaces.
+- Study room with Explain, Practice, Quiz, Review, and Explore modes.
+- Materials shelf, learning progress, and a flexible weekly plan.
+- Local persistence for learning spaces and progress.
+
+## Stack
+React, TypeScript, Vite, Tailwind CSS v4, Zustand, and Lucide icons.
 
 ## Run locally
 ```bash
@@ -11,19 +18,10 @@ npm install
 npm run dev
 ```
 
-## Product areas
-- Home: continue learning, learning spaces, gentle daily prompts
-- Study room: conversational Explain, Practice, Quiz, Review, Explore modes
-- Materials: resource library and upload affordances
-- Progress: concept and learning-space progress
-- Study plan: weekly learning rhythm
-- Settings: profile and learning preferences
+Production build: `npm run build` then `npm run preview`.
 
-## Next implementation passes
-1. Replace mock chat with a provider-agnostic streaming API adapter.
-2. Add auth and durable user data.
-3. Implement file upload, extraction, chunking, retrieval and source citations.
-4. Persist learner profile, session summaries and concept-level learning memory.
-5. Add accessibility, tests, telemetry and production deployment configuration.
+## Current implementation boundaries
+Study companion responses are simulated. Material cards are sample content; file upload, document extraction, AI retrieval, authentication, and server-side learner memory are not connected. Learning spaces persist in browser storage through Zustand persist.
 
-The name **Morrow** is a working brand and can be changed independently of the app structure.
+## Design direction
+An expressive, high-contrast learning identity: cobalt blue, ink, coral, yellow, and lilac; Space Grotesk for display and DM Sans for reading. The public site is a full product introduction, while the workspace uses separate task-oriented navigation and layout.
