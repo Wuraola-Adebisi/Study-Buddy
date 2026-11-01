@@ -12,7 +12,7 @@ export function MarketingFooter({ onEnter }: { onEnter: () => void }) {
       <div className="page py-14 md:py-16">
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
           <div className="max-w-sm">
-            <Wordmark onDark />
+            <Wordmark />
             <p className="mt-4 text-sm text-on-night-muted">
               Morrow is a front-end prototype. Study replies are simulated, and your spaces are saved in this browser
               only.
