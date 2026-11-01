@@ -51,11 +51,14 @@ const quiz: Record<Domain, string> = {
   general: 'Quick check: which approach usually builds durable understanding? A) Reread until familiar. B) Retrieve the idea from memory and apply it to a new example. C) Memorise isolated words. Reply A, B, or C and explain.',
 }
 
-function responseFor(mode: LearningMode, domain: Domain, input: string, turn: number): string {
+function isQuizAnswer(input: string) {
+  return /^[abc][.! ]*$/i.test(input.trim())
+}
+
+function responseFor(mode: LearningMode, domain: Domain, input: string): string {
   const text = input.toLowerCase()
-  if (/^(a|b|c)[.! ]*$/.test(text.trim())) {
-    const correct = domain === 'code' ? 'B' : domain === 'psychology' ? 'B' : domain === 'design' ? 'B' : domain === 'finance' ? 'B' : domain === 'science' ? 'B' : 'B'
-    return text.trim().startsWith(correct.toLowerCase())
+  if (isQuizAnswer(input)) {
+    return text.trim().startsWith('b')
       ? 'That’s the strongest choice. The important part is the reasoning behind it, not just selecting a letter. Can you explain the principle in your own words?'
       : 'Not quite. Consider which option relies on evidence, context, and a process you can actually test. Want to try again, or should I unpack each option?'
   }
@@ -94,12 +97,11 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
   const [error, setError] = useState('')
   const [activityTotal, setActivityTotal] = useState(saved?.activityCount ?? 0)
   const logRef = useRef<HTMLDivElement>(null)
-  const activityCount = activityTotal
 
   useEffect(() => {
     if (!activeId) return
-    saveSession(activeId, { messages, mode, activityCount })
-  }, [activeId, messages, mode, activityCount, saveSession])
+    saveSession(activeId, { messages, mode, activityCount: activityTotal })
+  }, [activeId, messages, mode, activityTotal, saveSession])
 
   useEffect(() => {
     const log = logRef.current
@@ -121,11 +123,12 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     const assistantMessage: ChatMessage = {
       id: Date.now() + 1,
       role: 'assistant',
-      content: responseFor(mode, domain, content, messages.length),
+      content: responseFor(mode, domain, content),
     }
     setMessages((current) => [...current, userMessage, assistantMessage])
     setDraft('')
-    recordActivity(activeId ?? topic?.id ?? 1, mode === 'Quiz' || mode === 'Practice' ? 1 : 0)
+    const answeredQuizCorrectly = mode === 'Quiz' && isQuizAnswer(content) && content.trim().toLowerCase().startsWith('b')
+    recordActivity(activeId ?? topic?.id ?? 1, answeredQuizCorrectly ? 1 : 0)
     setActivityTotal((count) => count + 1)
   }
 
@@ -211,7 +214,7 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
               <textarea id="study-draft" value={draft} maxLength={1200}
                 onChange={(e) => { setDraft(e.target.value); if (error) setError('') }}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(draft) } }}
-                rows={2} placeholder="Ask a question or share how you're thinking…"
+                rows={2} placeholder="Ask a question or share how you’re thinking…"
                 className="min-h-12 min-w-0 flex-1 resize-y bg-transparent py-2 text-base placeholder:text-muted focus:outline-none" />
               <button type="submit" aria-label="Send message" disabled={!draft.trim()}
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-accent text-on-accent hover:bg-accent-deep">
