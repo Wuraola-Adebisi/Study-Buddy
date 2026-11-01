@@ -89,9 +89,9 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     id: 1, role: 'assistant',
     content: `Welcome to **${topic?.name ?? 'your learning space'}**. Choose a mode above, or tell me what you are trying to understand. We can work through an idea, practise it, or check what you remember.`,
   }])
-  const [error, setError] = useState('')
+  const [error, setError] = useState('')\n  const [activityTotal, setActivityTotal] = useState(saved?.activityCount ?? 0)
   const logRef = useRef<HTMLDivElement>(null)
-  const activityCount = saved?.activityCount ?? 0
+  const activityCount = activityTotal
 
   useEffect(() => {
     if (!activeId) return
@@ -122,7 +122,7 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
     }
     setMessages((current) => [...current, userMessage, assistantMessage])
     setDraft('')
-    recordActivity(activeId ?? topic?.id ?? 1, mode === 'Quiz' || mode === 'Practice' ? 1 : 0)
+    recordActivity(activeId ?? topic?.id ?? 1, mode === 'Quiz' || mode === 'Practice' ? 1 : 0)\n    setActivityTotal((count) => count + 1)
   }
 
   const changeMode = (next: LearningMode) => {
