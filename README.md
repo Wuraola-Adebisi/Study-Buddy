@@ -10,7 +10,7 @@ Morrow is a learning companion for people learning anything. Start with a questi
 - Local persistence for learning spaces and progress.
 
 ## Stack
-React, TypeScript, Vite, Tailwind CSS v4, Zustand, and Lucide icons.
+React, TypeScript, Vite, Tailwind CSS v4, Zustand, Lucide icons, and self-hosted Bricolage Grotesque and DM Sans fonts.
 
 ## Run locally
 ```bash
@@ -24,4 +24,4 @@ Production build: `npm run build` then `npm run preview`.
 Study companion responses are simulated. Material cards are sample content; file upload, document extraction, AI retrieval, authentication, and server-side learner memory are not connected. Learning spaces persist in browser storage through Zustand persist.
 
 ## Design direction
-An expressive, high-contrast learning identity: cobalt blue, ink, coral, yellow, and lilac; Space Grotesk for display and DM Sans for reading. The public site is a full product introduction, while the workspace uses separate task-oriented navigation and layout.
+Cobalt blue, ink, coral, yellow, lilac and green on a paper background. Bricolage Grotesque for headings and DM Sans for reading, both self-hosted. Tokens and the verified contrast table are in `docs/design-system.md`.

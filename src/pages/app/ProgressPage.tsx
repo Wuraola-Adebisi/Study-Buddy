@@ -1,4 +1,62 @@
-import {ArrowUpRight,BookOpen,Target} from 'lucide-react'
-import {useLearningStore} from '../../store/useLearningStore'
-export function ProgressPage({onStudy}:{onStudy:(id:number)=>void}){const topics=useLearningStore(s=>s.topics);const avg=topics.length?Math.round(topics.reduce((sum,t)=>sum+t.progress,0)/topics.length):0;return <div className="mx-auto max-w-[1180px] px-5 py-12 md:px-9"><p className="mb-3 text-[11px] font-bold uppercase tracking-[.17em] text-blue">A record of what is taking shape</p><h1 className="font-display text-[clamp(38px,5vw,56px)] font-semibold tracking-[-2.5px]">Your progress</h1><p className="mt-3 max-w-[540px] text-[14px] leading-7 text-muted">A useful view of the subjects you have returned to and the ideas you have explored.</p><div className="my-10 grid gap-3 sm:grid-cols-3"><Stat icon={Target} label="Average progress" value={avg+'%'} tone="bg-blue-soft"/><Stat icon={BookOpen} label="Learning spaces" value={String(topics.length)} tone="bg-yellow"/><Stat icon={ArrowUpRight} label="Concepts explored" value={String(topics.reduce((sum,t)=>sum+t.concepts,0))} tone="bg-green"/></div><h2 className="mb-4 font-display text-[24px] font-semibold">By learning space</h2><div className="space-y-3">{topics.map(topic=><article key={topic.id} className="flex flex-col gap-5 rounded-[20px] border border-line bg-white p-6 sm:flex-row sm:items-center"><div className="min-w-0 flex-1"><p className="text-[10px] font-bold uppercase tracking-[.13em] text-muted">{topic.area}</p><h3 className="mt-2 font-display text-[18px] font-semibold">{topic.name}</h3><p className="mt-1 text-[11px] text-muted">{topic.concepts} concepts explored · Last active {topic.updated}</p><div className="mt-4 h-1.5 max-w-[520px] overflow-hidden rounded-full bg-panel"><div className="h-full rounded-full bg-blue" style={{width:`${topic.progress}%`}}/></div></div><div className="flex items-center justify-between gap-5 sm:flex-col sm:items-end"><strong className="font-display text-[25px]">{topic.progress}%</strong><button onClick={()=>onStudy(topic.id)} className="inline-flex items-center gap-2 text-[11px] font-bold text-blue">Continue <ArrowUpRight size={14}/></button></div></article>)}</div></div>}
-function Stat({icon:Icon,label,value,tone}:{icon:typeof Target;label:string;value:string;tone:string}){return <div className="rounded-[20px] border border-line bg-white p-6"><span className={`grid h-10 w-10 place-items-center rounded-[13px] ${tone}`}><Icon size={18}/></span><p className="mt-6 text-[11px] text-muted">{label}</p><strong className="mt-1 block font-display text-[34px] font-semibold tracking-[-1.5px]">{value}</strong></div>}
+import { ArrowUpRight, BookOpen, Target } from 'lucide-react'
+import { useLearningStore } from '../../store/useLearningStore'
+
+type StatProps = { icon: typeof Target; label: string; value: string; tone: string }
+
+function Stat({ icon: Icon, label, value, tone }: StatProps) {
+  return (
+    <div className="card p-6">
+      <span className={`grid h-10 w-10 place-items-center rounded-md text-accent-deep ${tone}`}>
+        <Icon size={19} aria-hidden="true" />
+      </span>
+      <p className="mt-5 text-sm text-muted">{label}</p>
+      <strong className="mt-1 block font-display text-4xl font-semibold tabular-nums">{value}</strong>
+    </div>
+  )
+}
+
+export function ProgressPage({ onStudy }: { onStudy: (id: number) => void }) {
+  const topics = useLearningStore((s) => s.topics)
+  const avg = topics.length ? Math.round(topics.reduce((sum, t) => sum + t.progress, 0) / topics.length) : 0
+  const concepts = topics.reduce((sum, t) => sum + t.concepts, 0)
+
+  return (
+    <div className="page py-10 md:py-14">
+      <h1 className="page-title">Your progress</h1>
+      <p className="mt-3 max-w-xl text-base text-muted">
+        Percentage and concepts explored for each learning space.
+      </p>
+
+      <div className="my-10 grid gap-3 sm:grid-cols-3">
+        <Stat icon={Target} label="Average progress" value={`${avg}%`} tone="bg-accent-soft" />
+        <Stat icon={BookOpen} label="Learning spaces" value={String(topics.length)} tone="bg-yellow-soft" />
+        <Stat icon={ArrowUpRight} label="Concepts explored" value={String(concepts)} tone="bg-green" />
+      </div>
+
+      <h2 className="mb-4 text-2xl">By learning space</h2>
+      <ul className="space-y-3">
+        {topics.map((topic) => (
+          <li key={topic.id} className="card flex flex-col gap-5 p-6 sm:flex-row sm:items-center">
+            <div className="min-w-0 flex-1">
+              <p className="text-sm text-muted">{topic.area}</p>
+              <h3 className="mt-1 text-xl">{topic.name}</h3>
+              <p className="mt-1 text-sm text-muted">
+                {topic.concepts} concepts explored. Last active {topic.updated.toLowerCase()}.
+              </p>
+              <div aria-hidden="true" className="mt-4 h-1.5 max-w-lg overflow-hidden rounded-full bg-panel">
+                <div className="h-full rounded-full bg-accent" style={{ width: `${topic.progress}%` }} />
+              </div>
+            </div>
+            <div className="flex items-center justify-between gap-5 sm:flex-col sm:items-end sm:gap-1">
+              <strong className="font-display text-3xl font-semibold tabular-nums">{topic.progress}%</strong>
+              <button onClick={() => onStudy(topic.id)} className="link-action">
+                Continue <ArrowUpRight size={15} aria-hidden="true" />
+                <span className="sr-only"> {topic.name}</span>
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

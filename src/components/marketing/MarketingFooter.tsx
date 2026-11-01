@@ -1,3 +1,42 @@
-import {ArrowUpRight} from 'lucide-react'
-import {Wordmark} from '../brand/Wordmark'
-export function MarketingFooter({onEnter}:{onEnter:()=>void}){return <footer className="bg-ink text-white"><div className="mx-auto max-w-[1240px] px-5 pb-8 pt-16 md:px-10 md:pt-20"><div className="grid gap-12 border-b border-white/15 pb-14 md:grid-cols-[1.4fr_.6fr_.6fr]"><div><Wordmark light/><h2 className="mt-7 max-w-[470px] font-display text-[clamp(34px,5vw,58px)] font-semibold leading-[1.02] tracking-[-2.8px]">There's more to learn when you have room to think.</h2><button onClick={onEnter} className="mt-8 inline-flex h-12 items-center gap-3 rounded-full bg-yellow px-6 text-[13px] font-bold text-ink hover:bg-white">Find your next question <ArrowUpRight size={16}/></button></div><div><p className="mb-5 text-[11px] font-bold uppercase tracking-[.16em] text-white/45">Explore</p><div className="grid gap-4 text-[14px] text-white/80"><a href="#how-it-works" className="hover:text-yellow">How it works</a><a href="#what-you-can-do" className="hover:text-yellow">What you can do</a><a href="#built-around-you" className="hover:text-yellow">Your learning space</a></div></div><div><p className="mb-5 text-[11px] font-bold uppercase tracking-[.16em] text-white/45">Your account</p><div className="grid gap-4 text-[14px] text-white/80"><button className="text-left hover:text-yellow" onClick={onEnter}>Sign in</button><button className="text-left hover:text-yellow" onClick={onEnter}>Get started</button><a href="#how-it-works" className="hover:text-yellow">How it works</a></div></div></div><div className="flex flex-col gap-3 pt-6 text-[11px] text-white/45 sm:flex-row sm:items-center sm:justify-between"><span>© {new Date().getFullYear()} Morrow. Make room to understand.</span><div className="flex gap-5"><a href="#how-it-works">Product</a><a href="#what-you-can-do">Learning modes</a><span>Made for curious minds.</span></div></div></div></footer>}
+import { Wordmark } from '../brand/Wordmark'
+
+const explore = [
+  { href: '#how-it-works', label: 'How it works' },
+  { href: '#modes', label: 'Study modes' },
+  { href: '#faq', label: 'FAQ' },
+]
+
+export function MarketingFooter({ onEnter }: { onEnter: () => void }) {
+  return (
+    <footer className="surface-night bg-night text-on-night">
+      <div className="page py-14 md:py-16">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
+          <div className="max-w-sm">
+            <Wordmark onDark />
+            <p className="mt-4 text-sm text-on-night-muted">
+              Morrow is a front-end prototype. Study replies are simulated, and your spaces are saved in this browser
+              only.
+            </p>
+            <button onClick={onEnter} className="btn btn-yellow mt-6">
+              Start learning
+            </button>
+          </div>
+          <nav aria-label="Footer">
+            <ul className="flex flex-wrap gap-x-6 md:flex-col">
+              {explore.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="inline-flex min-h-11 min-w-11 items-center pr-4 text-sm transition-colors hover:text-yellow">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        <p className="mt-12 border-t border-on-night/15 pt-6 text-xs text-on-night-muted">
+          © {new Date().getFullYear()} Morrow
+        </p>
+      </div>
+    </footer>
+  )
+}
