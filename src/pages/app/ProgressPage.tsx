@@ -24,7 +24,7 @@ export function ProgressPage({ onStudy }: { onStudy: (id: number) => void }) {
     <div className="page py-10 md:py-14">
       <h1 className="page-title">Your progress</h1>
       <p className="mt-3 max-w-xl text-base text-muted">
-        Percentage and concepts explored for each learning space.
+        Starter progress is illustrative, not a measure of mastery. Concept counts record correct quiz checks.
       </p>
 
       <div className="my-10 grid gap-3 sm:grid-cols-3">
