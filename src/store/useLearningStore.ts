@@ -2,11 +2,14 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { ChatMessage, LearningTopic, LearningMode } from '../types'
 
-type StudySession = { messages: ChatMessage[]; mode: LearningMode; activityCount: number }\ntype PlannedSession = { id: string; day: string; title: string; detail: string; done: boolean }
+type StudySession = { messages: ChatMessage[]; mode: LearningMode; activityCount: number }
+type PlannedSession = { id: string; day: string; title: string; detail: string; done: boolean }
 type LearningState = {
   topics: LearningTopic[]
   activeTopicId: number | null
-  sessions: Record<number, StudySession>\n  plan: PlannedSession[]\n  togglePlanSession: (id: string) => void
+  sessions: Record<number, StudySession>
+  plan: PlannedSession[]
+  togglePlanSession: (id: string) => void
   setActiveTopic: (id: number) => void
   addTopic: (name: string, area: string) => void
   updateTopicProgress: (id: number, progress: number, concepts?: number) => void
@@ -33,8 +36,15 @@ export const useLearningStore = create<LearningState>()(
     (set, get) => ({
       topics: initialTopics,
       activeTopicId: 1,
-      sessions: {},\n      plan: [\n        { id: 'mon-review', day: 'Monday', title: 'Revisit the habit loop', detail: '10 minutes · Review', done: true },\n        { id: 'tue-js', day: 'Tuesday', title: 'Practise one JavaScript concept', detail: '20 minutes · Practice', done: true },\n        { id: 'thu-explore', day: 'Thursday', title: 'Explore a new question', detail: '15 minutes · Explore', done: false },\n        { id: 'sat-quiz', day: 'Saturday', title: 'Check what you remember', detail: '10 minutes · Quiz', done: false },\n      ],
-      setActiveTopic: (id) => set({ activeTopicId: id }),\n      togglePlanSession: (id) => set((state) => ({ plan: state.plan.map((item) => item.id === id ? { ...item, done: !item.done } : item) })),
+      sessions: {},
+      plan: [
+        { id: 'mon-review', day: 'Monday', title: 'Revisit the habit loop', detail: '10 minutes · Review', done: true },
+        { id: 'tue-js', day: 'Tuesday', title: 'Practise one JavaScript concept', detail: '20 minutes · Practice', done: true },
+        { id: 'thu-explore', day: 'Thursday', title: 'Explore a new question', detail: '15 minutes · Explore', done: false },
+        { id: 'sat-quiz', day: 'Saturday', title: 'Check what you remember', detail: '10 minutes · Quiz', done: false },
+      ],
+      setActiveTopic: (id) => set({ activeTopicId: id }),
+      togglePlanSession: (id) => set((state) => ({ plan: state.plan.map((item) => item.id === id ? { ...item, done: !item.done } : item) })),
       addTopic: (name, area) =>
         set((state) => {
           const id = Date.now()
