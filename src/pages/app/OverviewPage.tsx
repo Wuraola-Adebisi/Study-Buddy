@@ -4,7 +4,7 @@ import { useLearningStore } from '../../store/useLearningStore'
 import type { LearningTopic } from '../../types'
 import type { WorkspacePage } from '../../components/app/AppHeader'
 
-const suggestions = ['Understand a difficult concept', 'Learn something from scratch', 'Prepare for an upcoming test']
+const shortcuts: { label: string; page: WorkspacePage }[] = [{ label: 'Browse your materials', page: 'materials' }, { label: 'Plan a study session', page: 'plan' }, { label: 'Review your progress', page: 'progress' }]
 
 export function OverviewPage({ onNavigate, onStudy }: { onNavigate: (page: WorkspacePage) => void; onStudy: (id: number) => void }) {
   const topics = useLearningStore((state) => state.topics)
@@ -63,7 +63,7 @@ export function OverviewPage({ onNavigate, onStudy }: { onNavigate: (page: Works
 
       <section className="dashboard-next">
         <div className="dashboard-next-copy"><Clock3 size={19} /><div><h2>Not sure where to start?</h2><p>Choose a starting point. You can shape the session as you go.</p></div></div>
-        <div className="dashboard-suggestions">{suggestions.map((suggestion) => <button key={suggestion} onClick={() => recentTopic ? onStudy(recentTopic.id) : setShowCreate(true)}>{suggestion}<ArrowUpRight size={15} /></button>)}</div>
+        <div className="dashboard-suggestions">{shortcuts.map((shortcut) => <button key={shortcut.page} onClick={() => onNavigate(shortcut.page)}>{shortcut.label}<ArrowUpRight size={15} /></button>)}</div>
       </section>
 
       {showCreate && <div className="dashboard-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowCreate(false) }}>
