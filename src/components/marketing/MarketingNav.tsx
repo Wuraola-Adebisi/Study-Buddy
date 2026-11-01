@@ -1,4 +1,35 @@
-import {ArrowUpRight,Menu,X} from 'lucide-react'
-import {useState} from 'react'
-import {Wordmark} from '../brand/Wordmark'
-export function MarketingNav({onEnter}:{onEnter:()=>void}){const[open,setOpen]=useState(false);return <header className="relative z-20 border-b border-ink/10 bg-paper/90 backdrop-blur-md"><div className="mx-auto flex h-[78px] max-w-[1240px] items-center justify-between px-5 md:px-10"><a href="#top" aria-label="Morrow home"><Wordmark/></a><nav className="hidden items-center gap-9 text-[14px] font-medium text-muted md:flex"><a className="hover:text-blue" href="#how-it-works">How it works</a><a className="hover:text-blue" href="#what-you-can-do">What you can do</a><a className="hover:text-blue" href="#built-around-you">Built around you</a></nav><div className="hidden items-center gap-5 md:flex"><button onClick={onEnter} className="text-[14px] font-semibold hover:text-blue">Sign in</button><button onClick={onEnter} className="inline-flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-[13px] font-semibold text-white hover:bg-blue">Start learning <ArrowUpRight size={15}/></button></div><button className="grid h-11 w-11 place-items-center rounded-full border border-line md:hidden" aria-label="Toggle navigation" onClick={()=>setOpen(!open)}>{open?<X size={19}/>:<Menu size={19}/>}</button></div>{open&&<nav className="absolute left-0 right-0 top-full grid gap-5 border-b border-line bg-paper px-6 py-6 shadow-lg md:hidden"><a href="#how-it-works" onClick={()=>setOpen(false)}>How it works</a><a href="#what-you-can-do" onClick={()=>setOpen(false)}>What you can do</a><a href="#built-around-you" onClick={()=>setOpen(false)}>Built around you</a><button onClick={onEnter} className="h-12 rounded-full bg-ink text-white">Open your learning space</button></nav>}</header>}
+import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { useState } from 'react'
+import { Wordmark } from '../brand/Wordmark'
+
+type SitePage = 'home' | 'how-it-works' | 'privacy' | 'terms'
+type Props = { onEnter: () => void; onNavigate: (page: SitePage) => void; active?: SitePage }
+
+export function MarketingNav({ onEnter, onNavigate, active = 'home' }: Props) {
+  const [open, setOpen] = useState(false)
+  const links: { label: string; page: SitePage }[] = [
+    { label: 'How it works', page: 'how-it-works' },
+    { label: 'Privacy', page: 'privacy' },
+  ]
+  const go = (page: SitePage) => { setOpen(false); onNavigate(page) }
+
+  return (
+    <header className="morrow-nav">
+      <div className="morrow-nav-inner">
+        <button type="button" aria-label="Morrow home" className="morrow-brand" onClick={() => go('home')}>
+          <Wordmark /><span className="brand-note">A LITTLE MORE CURIOUS</span>
+        </button>
+        <nav className="morrow-nav-links" aria-label="Main navigation">
+          {links.map((link) => <button key={link.page} onClick={() => go(link.page)} className={active === link.page ? 'active' : ''}>{link.label}</button>)}
+        </nav>
+        <button onClick={onEnter} className="nav-start">Open Morrow <ArrowUpRight size={17} /></button>
+        <button className="nav-menu-toggle" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X size={20} /> : <Menu size={20} />}</button>
+      </div>
+      {open && <nav className="morrow-mobile-nav" aria-label="Mobile navigation">
+        {links.map((link) => <button key={link.page} onClick={() => go(link.page)}>{link.label}<ArrowUpRight size={15} /></button>)}
+        <button onClick={() => go('terms')}>Terms of service<ArrowUpRight size={15} /></button>
+        <button onClick={onEnter}>Open your learning space<ArrowUpRight size={15} /></button>
+      </nav>}
+    </header>
+  )
+}

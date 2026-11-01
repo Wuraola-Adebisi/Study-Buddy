@@ -1,7 +1,81 @@
-import {ArrowDown,ArrowRight,ArrowUpRight,Check,FileText,MessageCircleQuestion,PencilLine} from 'lucide-react'
-import {MarketingNav} from '../../components/marketing/MarketingNav'
-import {HeroArtwork} from '../../components/marketing/HeroArtwork'
-import {FeatureBand} from '../../components/marketing/FeatureBand'
-import {MarketingFooter} from '../../components/marketing/MarketingFooter'
-import {FaqSection} from '../../components/marketing/FaqSection'
-export function HomePage({onEnter}:{onEnter:()=>void}){return <div id="top" className="overflow-hidden bg-paper text-ink"><MarketingNav onEnter={onEnter}/><main><section className="mx-auto grid max-w-[1240px] items-center gap-5 px-5 pb-16 pt-12 md:min-h-[680px] md:grid-cols-[1.02fr_.98fr] md:px-10 md:pb-20 md:pt-14"><div className="relative z-10"><div className="mb-7 inline-flex items-center gap-2 rounded-full border border-ink/15 px-3 py-2 text-[11px] font-semibold text-muted"><span className="h-2 w-2 rounded-full bg-coral"/>A learning companion that keeps the thread</div><h1 className="max-w-[680px] font-display text-[clamp(52px,7.2vw,88px)] font-semibold leading-[.98] tracking-[-5px]">Make room to <span className="text-blue">understand.</span></h1><p className="mt-7 max-w-[510px] text-[16px] leading-7 text-muted md:text-[18px] md:leading-8">Bring the things you're curious about. Learn through conversation, practise what matters, and pick up right where your thinking left off.</p><div className="mt-9 flex flex-wrap items-center gap-4"><button onClick={onEnter} className="inline-flex h-[54px] items-center gap-3 rounded-full bg-blue px-7 text-[14px] font-bold text-white shadow-[0_5px_0_#243eaa] transition hover:-translate-y-0.5 hover:bg-blue-dark">Start learning <ArrowUpRight size={17}/></button><a href="#how-it-works" className="inline-flex h-[54px] items-center gap-2 px-3 text-[13px] font-semibold hover:text-blue">See how it works <ArrowDown size={15}/></a></div><div className="mt-12 flex items-center gap-4 border-t border-ink/10 pt-5"><div className="flex -space-x-2"><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-yellow text-[11px] font-bold">?</span><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-coral text-[11px] font-bold text-white">A</span><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-lilac text-[11px] font-bold">∑</span></div><p className="text-[11px] leading-5 text-muted">For the questions you have now,<br/>and the ones you haven't thought of yet.</p></div></div><div className="relative mt-4 md:mt-0"><HeroArtwork/><div className="absolute bottom-0 right-0 hidden max-w-[160px] rotate-3 rounded-xl border border-ink/10 bg-white p-3 text-[10px] leading-5 text-muted shadow-lg lg:block">A good question can open up an entirely new subject.</div></div></section><section className="bg-white"><div className="mx-auto max-w-[1240px] px-5 py-14 md:px-10 md:py-16"><div className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between"><div><p className="mb-3 text-[11px] font-bold uppercase tracking-[.18em] text-blue">A better way to keep learning</p><h2 className="max-w-[620px] font-display text-[clamp(32px,4vw,48px)] font-semibold leading-[1.08] tracking-[-2px]">Learning is a process.<br/>Your tools should know that.</h2></div><p className="max-w-[330px] text-[14px] leading-6 text-muted">Most questions lead to more questions. Morrow helps you follow the thread instead of starting from scratch every time.</p></div><FeatureBand/></div></section><section id="how-it-works" className="mx-auto max-w-[1240px] px-5 py-20 md:px-10 md:py-28"><div className="grid gap-12 md:grid-cols-[.8fr_1.2fr]"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em] text-blue">How it works</p><h2 className="font-display text-[clamp(36px,5vw,58px)] font-semibold leading-[1.03] tracking-[-2.8px]">From first question to real understanding.</h2><p className="mt-6 max-w-[380px] text-[14px] leading-7 text-muted">You choose what matters. Morrow helps you work through it, notices what is clicking, and gives you a useful place to continue.</p><button onClick={onEnter} className="mt-8 inline-flex items-center gap-2 text-[13px] font-bold text-blue">Explore your learning space <ArrowRight size={16}/></button></div><div className="grid gap-4 sm:grid-cols-2">{[{n:'01',icon:MessageCircleQuestion,title:'Bring a question',text:'Start with a topic, a tricky concept, or something you want to understand better.',tone:'bg-blue-soft'},{n:'02',icon:FileText,title:'Add your material',text:'Use your own notes and reading as context for the things you are learning.',tone:'bg-green'},{n:'03',icon:PencilLine,title:'Think it through',text:'Switch between explanations, practice, quizzes, review, and open exploration.',tone:'bg-yellow'},{n:'04',icon:Check,title:'Build on what you know',text:'Your learning history helps future sessions pick up with context.',tone:'bg-lilac'}].map(({n,icon:Icon,title,text,tone})=><article key={n} className="rounded-[22px] border border-ink/10 bg-white p-6 md:p-7"><div className="mb-8 flex items-center justify-between"><span className="font-display text-[13px] font-bold text-muted">{n}</span><span className={`grid h-11 w-11 place-items-center rounded-[14px] ${tone}`}><Icon size={19}/></span></div><h3 className="font-display text-[21px] font-semibold tracking-[-.6px]">{title}</h3><p className="mt-2 text-[13px] leading-6 text-muted">{text}</p></article>)}</div></div></section><section id="what-you-can-do" className="bg-blue py-20 text-white md:py-28"><div className="mx-auto grid max-w-[1240px] gap-12 px-5 md:grid-cols-[.85fr_1.15fr] md:items-center md:px-10"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em] text-white/60">One subject, many ways in</p><h2 className="font-display text-[clamp(38px,5vw,62px)] font-semibold leading-[1.02] tracking-[-3px]">Not every idea clicks the same way.</h2><p className="mt-6 max-w-[410px] text-[14px] leading-7 text-white/75">Some days you need a clear explanation. Other days, you need to test yourself, revisit a difficult point, or follow a new connection.</p></div><div className="grid grid-cols-2 gap-3">{[{name:'Explain',sub:'Make the idea clear',tone:'bg-white text-ink'},{name:'Practice',sub:'Work it out',tone:'bg-yellow text-ink'},{name:'Quiz',sub:'Check what stuck',tone:'bg-coral text-white'},{name:'Review',sub:'Return to the hard bits',tone:'bg-lilac text-ink'},{name:'Explore',sub:'Follow your curiosity',tone:'bg-green text-ink'}].map((m,i)=><div key={m.name} className={`min-h-[120px] rounded-[18px] p-5 ${m.tone} ${i===4?'col-span-2':''}`}><span className="text-[10px] font-bold uppercase tracking-[.15em] opacity-60">0{i+1}</span><h3 className="mt-4 font-display text-[24px] font-semibold tracking-[-.8px]">{m.name}</h3><p className="mt-1 text-[12px] opacity-70">{m.sub}</p></div>)}</div></div></section><FaqSection/><section id="built-around-you" className="mx-auto max-w-[1240px] px-5 py-20 md:px-10 md:py-28"><div className="overflow-hidden rounded-[28px] bg-yellow px-7 py-10 md:px-14 md:py-16"><div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em]">Built around your learning</p><h2 className="max-w-[650px] font-display text-[clamp(38px,5vw,64px)] font-semibold leading-[1.02] tracking-[-3px]">Your curiosity has a memory. Give it somewhere to grow.</h2><p className="mt-5 max-w-[520px] text-[14px] leading-7 text-ink/70">Morrow keeps track of the subjects you return to, the ideas you have explored, and the progress you are making. Your next session starts with context.</p></div><button onClick={onEnter} className="inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-ink px-7 text-[14px] font-bold text-white hover:bg-blue">Make a start <ArrowUpRight size={17}/></button></div></div></section></main><MarketingFooter onEnter={onEnter}/></div>}
+import { ArrowRight, ArrowUpRight, BookOpen, Brain, Compass, PencilLine } from 'lucide-react'
+import { MarketingNav } from '../../components/marketing/MarketingNav'
+import { HeroArtwork } from '../../components/marketing/HeroArtwork'
+import { MarketingFooter } from '../../components/marketing/MarketingFooter'
+
+type SitePage = 'home' | 'how-it-works' | 'privacy' | 'terms'
+type Props = { onEnter: () => void; onNavigate: (page: SitePage) => void }
+
+const ways = [
+  { title: 'Get a clearer explanation', detail: 'Untangle a concept and see how the pieces fit.', icon: BookOpen, tone: 'way-mint' },
+  { title: 'Try it for yourself', detail: 'Work through an example and learn by doing.', icon: PencilLine, tone: 'way-lilac' },
+  { title: 'Check what you remember', detail: 'Use a short quiz to spot what needs another look.', icon: Brain, tone: 'way-yellow' },
+  { title: 'Follow a new question', detail: 'Explore a connection that takes you somewhere useful.', icon: Compass, tone: 'way-blue' },
+]
+
+export function HomePage({ onEnter, onNavigate }: Props) {
+  return (
+    <div id="top" className="morrow-site">
+      <MarketingNav onEnter={onEnter} onNavigate={onNavigate} />
+      <main>
+        <section className="home-hero">
+          <div className="home-hero-copy">
+            <h1>Big questions.<br /><span>Room to figure them out.</span></h1>
+            <p>Morrow is a learning companion for the things you want to understand. Start with a question, take the path that makes sense, and pick it up again whenever you're ready.</p>
+            <div className="home-hero-actions">
+              <button onClick={onEnter} className="button-primary">Start learning <ArrowUpRight size={18} /></button>
+              <button onClick={() => onNavigate('how-it-works')} className="button-quiet">See how Morrow works <ArrowRight size={17} /></button>
+            </div>
+            <div className="home-trust-note"><span className="note-dot" /> Your curiosity sets the pace.</div>
+          </div>
+          <div className="home-hero-art">
+            <HeroArtwork />
+            <div className="hero-photo-card">
+              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=720&q=85" alt="Open notebook and pen on a desk" />
+              <span>Make a note of what matters.</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="home-intro">
+          <div className="home-intro-photo">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1100&q=85" alt="A small group learning and sharing ideas around a table" loading="lazy" />
+          </div>
+          <div className="home-intro-copy">
+            <h2>Learning should move with you.</h2>
+            <p>Some days you want a simple explanation. Other days you want to practise, test your memory, or chase a side question. You can change direction without starting from scratch.</p>
+            <button className="text-link" onClick={() => onNavigate('how-it-works')}>Get to know the approach <ArrowRight size={17} /></button>
+          </div>
+        </section>
+
+        <section className="home-ways">
+          <div className="home-section-heading">
+            <h2>Find your way into an idea.</h2>
+            <p>Choose the kind of help that fits what you need right now. You can switch approaches whenever you like.</p>
+          </div>
+          <div className="ways-grid">
+            {ways.map(({ title, detail, icon: Icon, tone }) => (
+              <button key={title} className={`way-card ${tone}`} onClick={onEnter}>
+                <span className="way-icon"><Icon size={21} /></span>
+                <span className="way-card-title">{title}</span>
+                <span className="way-card-detail">{detail}</span>
+                <span className="way-card-action">Explore in Morrow <ArrowUpRight size={16} /></span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="home-photo-banner">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=85" alt="A learner working through material on a laptop" loading="lazy" />
+          <div><h2>Keep the thread.<br />Come back to it.</h2><p>Your learning spaces help you organise the subjects you're exploring and see where to continue.</p><button onClick={onEnter} className="button-light">Open your learning space <ArrowUpRight size={17} /></button></div>
+        </section>
+
+        <section className="home-final">
+          <h2>What have you been<br />meaning to understand?</h2>
+          <button onClick={onEnter} className="button-primary">Start with a question <ArrowUpRight size={18} /></button>
+        </section>
+      </main>
+      <MarketingFooter onEnter={onEnter} onNavigate={onNavigate} />
+    </div>
+  )
+}

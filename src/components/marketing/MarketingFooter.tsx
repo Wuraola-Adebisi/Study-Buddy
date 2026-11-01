@@ -1,3 +1,31 @@
-import {ArrowUpRight} from 'lucide-react'
-import {Wordmark} from '../brand/Wordmark'
-export function MarketingFooter({onEnter}:{onEnter:()=>void}){return <footer className="bg-ink text-white"><div className="mx-auto max-w-[1240px] px-5 pb-8 pt-16 md:px-10 md:pt-20"><div className="grid gap-12 border-b border-white/15 pb-14 md:grid-cols-[1.4fr_.6fr_.6fr]"><div><Wordmark light/><h2 className="mt-7 max-w-[470px] font-display text-[clamp(34px,5vw,58px)] font-semibold leading-[1.02] tracking-[-2.8px]">There's more to learn when you have room to think.</h2><button onClick={onEnter} className="mt-8 inline-flex h-12 items-center gap-3 rounded-full bg-yellow px-6 text-[13px] font-bold text-ink hover:bg-white">Find your next question <ArrowUpRight size={16}/></button></div><div><p className="mb-5 text-[11px] font-bold uppercase tracking-[.16em] text-white/45">Explore</p><div className="grid gap-4 text-[14px] text-white/80"><a href="#how-it-works" className="hover:text-yellow">How it works</a><a href="#what-you-can-do" className="hover:text-yellow">What you can do</a><a href="#built-around-you" className="hover:text-yellow">Your learning space</a></div></div><div><p className="mb-5 text-[11px] font-bold uppercase tracking-[.16em] text-white/45">Your account</p><div className="grid gap-4 text-[14px] text-white/80"><button className="text-left hover:text-yellow" onClick={onEnter}>Sign in</button><button className="text-left hover:text-yellow" onClick={onEnter}>Get started</button><a href="#how-it-works" className="hover:text-yellow">How it works</a></div></div></div><div className="flex flex-col gap-3 pt-6 text-[11px] text-white/45 sm:flex-row sm:items-center sm:justify-between"><span>© {new Date().getFullYear()} Morrow. Make room to understand.</span><div className="flex gap-5"><a href="#how-it-works">Product</a><a href="#what-you-can-do">Learning modes</a><span>Made for curious minds.</span></div></div></div></footer>}
+import { ArrowUpRight } from 'lucide-react'
+import { Wordmark } from '../brand/Wordmark'
+
+type SitePage = 'home' | 'how-it-works' | 'privacy' | 'terms'
+type Props = { onEnter: () => void; onNavigate: (page: SitePage) => void }
+
+export function MarketingFooter({ onEnter, onNavigate }: Props) {
+  return (
+    <footer className="morrow-footer">
+      <div className="footer-main">
+        <div className="footer-brand-col">
+          <Wordmark light />
+          <p>A place to follow a question, work through an idea, and keep learning at your own pace.</p>
+          <button onClick={onEnter}>Go to your learning space <ArrowUpRight size={16} /></button>
+        </div>
+        <div className="footer-link-col">
+          <span>EXPLORE</span>
+          <button onClick={() => onNavigate('home')}>Home</button>
+          <button onClick={() => onNavigate('how-it-works')}>How it works</button>
+          <button onClick={onEnter}>Your learning space</button>
+        </div>
+        <div className="footer-link-col">
+          <span>THE DETAILS</span>
+          <button onClick={() => onNavigate('privacy')}>Privacy policy</button>
+          <button onClick={() => onNavigate('terms')}>Terms of service</button>
+        </div>
+      </div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} Morrow</span><span>Make room to understand.</span><span>Take your time. Follow the thread.</span></div>
+    </footer>
+  )
+}
