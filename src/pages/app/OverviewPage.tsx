@@ -14,7 +14,9 @@ export function OverviewPage({
 }) {
   const topics = useLearningStore((s) => s.topics)
   const activeId = useLearningStore((s) => s.activeTopicId)
-  const addTopic = useLearningStore((s) => s.addTopic)\n  const plan = useLearningStore((s) => s.plan)\n  const completedSessions = plan.filter((session) => session.done).length
+  const addTopic = useLearningStore((s) => s.addTopic)
+  const plan = useLearningStore((s) => s.plan)
+  const completedSessions = plan.filter((session) => session.done).length
   const [name, setName] = useState('')
   const [area, setArea] = useState('Something new')
   const dialogRef = useRef<HTMLDialogElement>(null)
