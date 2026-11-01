@@ -1,11 +1,10 @@
-import { FileText, FolderOpen, Plus, Search, UploadCloud } from 'lucide-react'
+import { FileText, FolderOpen, Search } from 'lucide-react'
 import { useState } from 'react'
 import { sampleMaterials } from '../../data/learning'
 import { toneFor } from '../../lib/tones'
 
 export function MaterialsPage() {
   const [query, setQuery] = useState('')
-  const [notice, setNotice] = useState('')
   const visible = sampleMaterials.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
 
   return (
@@ -28,19 +27,7 @@ export function MaterialsPage() {
             className="field pl-11"
           />
         </div>
-        <button
-          onClick={() => setNotice('File upload will be connected when storage and document processing are implemented.')}
-          className="btn btn-primary min-h-12"
-        >
-          <Plus size={17} aria-hidden="true" /> Add material
-        </button>
       </div>
-
-      {notice && (
-        <p role="status" className="mb-5 rounded-md bg-yellow-soft p-4 text-sm">
-          {notice}
-        </p>
-      )}
 
       <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {visible.map((item, i) => (
@@ -72,13 +59,6 @@ export function MaterialsPage() {
         </div>
       )}
 
-      <div className="mt-8 rounded-xl border border-dashed border-field bg-surface/60 px-6 py-12 text-center">
-        <UploadCloud size={26} aria-hidden="true" className="mx-auto text-accent" />
-        <h2 className="mt-4 text-xl">Bring your own material</h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-          PDF, DOCX, and presentation uploads will be enabled with the document storage and extraction service.
-        </p>
-      </div>
     </div>
   )
 }
