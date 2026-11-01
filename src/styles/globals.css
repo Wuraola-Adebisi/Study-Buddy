@@ -31,6 +31,9 @@ h1, h2, h3 { font-family: var(--font-display); }
 img { display: block; max-width: 100%; }
 
 /* Morrow: a bright, tactile learning environment. */
+.hero-grid { background-image: linear-gradient(to right, rgba(25,59,54,.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(25,59,54,.07) 1px, transparent 1px); background-size: 34px 34px; }
+.learning-orbit { animation: morrow-orbit 30s linear infinite; transform-origin: center; }
+@keyframes morrow-orbit { to { transform: rotate(360deg); } }
 .morrow-site { overflow: hidden; background: var(--color-paper); color: var(--color-ink); }
 .morrow-nav { position: sticky; top: 0; z-index: 40; background: rgba(245,248,246,.94); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-line); }
 .morrow-nav-inner { max-width: 1440px; min-height: 82px; margin: auto; padding: 0 5vw; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
