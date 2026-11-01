@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, BookOpen, Paperclip, Send } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, BookOpen, Send } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { modeDescriptions } from '../../data/learning'
 import { useLearningStore } from '../../store/useLearningStore'
@@ -24,7 +24,6 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
   const topic = topics.find((t) => t.id === activeId) ?? topics[0]
   const [mode, setMode] = useState<LearningMode>('Explain')
   const [draft, setDraft] = useState('')
-  const [notice, setNotice] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 1,
@@ -48,7 +47,6 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
       { id: Date.now() + 1, role: 'assistant', content: responses[mode] },
     ])
     setDraft('')
-    setNotice('')
   }
 
   return (
@@ -115,7 +113,6 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
 
           <div className="border-t border-line p-4">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-x-4">
-              <p className="text-sm text-muted">Replies are simulated in this build.</p>
               <button type="button" onClick={() => send('Can you give me a real-life example?')} className="link-action">
                 Give me an example <ArrowUpRight size={14} aria-hidden="true" />
               </button>
@@ -127,14 +124,6 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
               }}
               className="flex items-end gap-3 rounded-lg border border-field bg-surface p-3"
             >
-              <button
-                type="button"
-                aria-label="Attach material"
-                onClick={() => setNotice('Attaching material is not available in this build yet.')}
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-panel text-muted hover:text-ink"
-              >
-                <Paperclip size={18} aria-hidden="true" />
-              </button>
               <label htmlFor="study-draft" className="sr-only">
                 Your message
               </label>
@@ -161,9 +150,6 @@ export function StudyPage({ onBack }: { onBack: () => void }) {
                 <Send size={18} aria-hidden="true" />
               </button>
             </form>
-            <p role="status" className="mt-2 min-h-5 text-center text-xs text-muted">
-              {notice}
-            </p>
           </div>
         </section>
 
