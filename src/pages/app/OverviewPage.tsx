@@ -14,7 +14,7 @@ export function OverviewPage({
 }) {
   const topics = useLearningStore((s) => s.topics)
   const activeId = useLearningStore((s) => s.activeTopicId)
-  const addTopic = useLearningStore((s) => s.addTopic)
+  const addTopic = useLearningStore((s) => s.addTopic)\n  const plan = useLearningStore((s) => s.plan)\n  const completedSessions = plan.filter((session) => session.done).length
   const [name, setName] = useState('')
   const [area, setArea] = useState('Something new')
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -77,7 +77,7 @@ export function OverviewPage({
             <CalendarDays size={20} aria-hidden="true" />
           </span>
           <span>
-            <span className="block font-display text-4xl font-bold tabular-nums">2 of 4</span>
+            <span className="block font-display text-4xl font-bold tabular-nums">{completedSessions} of {plan.length}</span>
             <span className="mt-1 block text-sm text-muted">planned sessions done</span>
           </span>
           <span className="text-sm font-semibold text-accent-deep">Open study plan</span>
