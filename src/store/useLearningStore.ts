@@ -33,7 +33,7 @@ const starterMessage = (name: string): ChatMessage => ({
 
 export const useLearningStore = create<LearningState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       topics: initialTopics,
       activeTopicId: 1,
       sessions: {},
@@ -64,19 +64,30 @@ export const useLearningStore = create<LearningState>()(
             : topic),
         })),
       saveSession: (id, session) => set((state) => ({ sessions: { ...state.sessions, [id]: session } })),
-      recordActivity: (id, concepts = 0) => {
-        const topic = get().topics.find((item) => item.id === id)
-        if (!topic) return
+      recordActivity: (id, concepts = 0) =>
         set((state) => ({
           topics: state.topics.map((item) => item.id === id ? {
             ...item,
-            progress: Math.min(100, item.progress + 3),
-            concepts: item.concepts + concepts,
+            concepts: item.concepts + Math.max(0, concepts),
             updated: 'Today',
           } : item),
-        }))
-      },
+        })),
     }),
-    { name: 'morrow-learning-spaces', version: 2, migrate: (persisted: unknown) => persisted as LearningState },
+    {
+      name: 'morrow-learning-spaces',
+      version: 2,
+      migrate: (persisted: unknown) => {
+        if (!persisted || typeof persisted !== 'object') {
+          return { topics: initialTopics, activeTopicId: 1, sessions: {}, plan: [] } as LearningState
+        }
+        const saved = persisted as Partial<LearningState>
+        return {
+          topics: Array.isArray(saved.topics) ? saved.topics : initialTopics,
+          activeTopicId: typeof saved.activeTopicId === 'number' ? saved.activeTopicId : 1,
+          sessions: saved.sessions && typeof saved.sessions === 'object' ? saved.sessions : {},
+          plan: Array.isArray(saved.plan) ? saved.plan : [],
+        } as LearningState
+      },
+    },
   ),
 )
