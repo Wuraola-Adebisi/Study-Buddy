@@ -12,7 +12,7 @@ import { useLearningStore } from '../store/useLearningStore'
 export default function App() {
   const [inWorkspace, setInWorkspace] = useState(false)
   const [page, setPage] = useState<WorkspacePage>('overview')
-  const setActiveTopic = useLearningStore((s) => s.setActiveTopic)
+  const setActiveTopic = useLearningStore((s) => s.setActiveTopic)\n  const activeTopicId = useLearningStore((s) => s.activeTopicId)
   const mainRef = useRef<HTMLElement>(null)
 
   /* Each workspace page starts at the top, with focus moved to the content. */
@@ -47,7 +47,7 @@ export default function App() {
       <AppHeader page={page} onNavigate={setPage} onExit={() => setInWorkspace(false)} />
       <main id="workspace-main" ref={mainRef} tabIndex={-1} className="focus:outline-none">
         {page === 'overview' && <OverviewPage onNavigate={setPage} onStudy={openStudy} />}
-        {page === 'study' && <StudyPage onBack={() => setPage('overview')} />}
+        {page === 'study' && <StudyPage key={activeTopicId ?? 'study'} onBack={() => setPage('overview')} />}
         {page === 'materials' && <MaterialsPage />}
         {page === 'progress' && <ProgressPage onStudy={openStudy} />}
         {page === 'plan' && <PlanPage />}
