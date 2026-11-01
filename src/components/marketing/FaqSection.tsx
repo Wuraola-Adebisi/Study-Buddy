@@ -7,14 +7,6 @@ const questions = [
     q: 'Do I need to know exactly what to ask?',
     a: 'No. You can begin with a broad topic and narrow it down as you learn. The Explain, Practice, Quiz, Review, and Explore modes give you different ways into the same subject.',
   },
-  {
-    q: 'Can I bring my own notes and documents?',
-    a: 'Document upload and source-grounded answers are part of the product plan. They are not enabled in this current build yet.',
-  },
-  {
-    q: 'Will Morrow remember what I have learned?',
-    a: 'The current workspace saves your learning spaces and topic progress in this browser. Conversation history and adaptive learner memory are not connected yet.',
-  },
 ]
 
 export function FaqSection() {
@@ -23,7 +15,7 @@ export function FaqSection() {
       <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
         <div>
           <h2 className="text-heading font-bold">Questions</h2>
-          <p className="mt-4 max-w-sm text-base text-muted">What works in this build, and what is still planned.</p>
+          <p className="mt-4 max-w-sm text-base text-muted">A few things people often want to know before getting started.</p>
         </div>
         <div className="divide-y divide-ink/15 border-y border-ink/15">
           {questions.map(({ q, a }) => (
