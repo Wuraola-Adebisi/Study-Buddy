@@ -1,2 +1,75 @@
-import {ArrowUpRight,BookOpen,Check,CircleHelp} from 'lucide-react'
-export function HeroArtwork(){return <div className="relative mx-auto aspect-[1.04/1] w-full max-w-[560px]"><div className="hero-grid absolute inset-[7%] rounded-[42%] border border-ink/10"/><div className="learning-orbit absolute inset-[1%] rounded-full border border-dashed border-blue/25"/><div className="absolute left-[8%] top-[13%] h-4 w-4 rounded-full bg-coral"/><div className="absolute right-[12%] top-[18%] h-3 w-3 rounded-full bg-yellow"/><div className="absolute bottom-[13%] left-[18%] h-3 w-3 rounded-full bg-blue"/><div className="absolute left-[15%] top-[22%] w-[64%] -rotate-[8deg] rounded-[22px] border border-ink/10 bg-white p-5 shadow-[0_22px_60px_rgba(23,27,42,.10)] sm:p-7"><div className="mb-6 flex items-center justify-between"><span className="text-[10px] font-bold uppercase tracking-[.18em] text-blue">A learning note</span><BookOpen size={17} className="text-muted"/></div><p className="font-display text-[clamp(22px,3vw,35px)] font-semibold leading-[1.1] tracking-[-1.4px]">Why do habits become automatic?</p><div className="mt-5 flex items-center gap-2 text-[11px] text-muted"><span className="h-1.5 w-1.5 rounded-full bg-coral"/> Psychology · 6 min read</div><div className="mt-6 h-px bg-line"/><div className="mt-4 flex items-center justify-between"><span className="text-[11px] text-muted">A question worth keeping</span><span className="grid h-8 w-8 place-items-center rounded-full bg-blue text-white"><ArrowUpRight size={15}/></span></div></div><div className="absolute right-[1%] top-[47%] w-[43%] rotate-[7deg] rounded-[18px] bg-yellow p-4 shadow-[0_18px_42px_rgba(23,27,42,.12)] sm:p-5"><div className="mb-5 flex items-center justify-between"><span className="text-[10px] font-bold uppercase tracking-[.14em]">Try it yourself</span><CircleHelp size={16}/></div><p className="font-display text-[17px] font-semibold leading-tight sm:text-[21px]">What makes a cue easy to notice?</p><div className="mt-4 flex items-center gap-2 rounded-xl bg-white/70 p-3 text-[10px]"><span className="grid h-5 w-5 place-items-center rounded-full bg-blue text-white"><Check size={11}/></span>Your turn to think</div></div><div className="absolute bottom-[8%] left-[5%] w-[48%] rotate-[4deg] rounded-[18px] bg-blue p-4 text-white shadow-[0_18px_42px_rgba(23,27,42,.16)] sm:p-5"><span className="text-[10px] font-bold uppercase tracking-[.15em] text-white/65">Your understanding</span><div className="mt-4 flex items-end justify-between"><span className="font-display text-[38px] font-semibold tracking-[-2px]">68%</span><span className="mb-1 text-[10px] text-white/70">Habit formation</span></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/20"><div className="h-full w-[68%] rounded-full bg-yellow"/></div></div><div className="absolute bottom-[10%] right-[8%] grid h-[54px] w-[54px] place-items-center rounded-full border border-ink/10 bg-coral text-white shadow-lg"><span className="font-display text-[22px] font-bold">?</span></div></div>}
+import type { CSSProperties } from 'react'
+import { ArrowUpRight, BookOpen, Check, CircleHelp } from 'lucide-react'
+
+const delay = (ms: number) => ({ '--delay': `${ms}ms` }) as CSSProperties
+
+/* Decorative illustration of the product. Hidden from assistive technology. */
+export function HeroArtwork() {
+  return (
+    <div aria-hidden="true" className="@container mx-auto w-full max-w-xl">
+      <div className="relative flex flex-col gap-4 sm:block sm:aspect-[1.04/1]">
+        <div className="paper-grid absolute inset-[7%] hidden rounded-[42%] border border-line sm:block" />
+        <div className="orbit absolute inset-[1%] hidden rounded-full border border-dashed border-accent/30 sm:block" />
+        <span className="absolute left-[8%] top-[10%] hidden h-3.5 w-3.5 rounded-full bg-coral sm:block" />
+        <span className="absolute right-[12%] top-[16%] hidden h-2.5 w-2.5 rounded-full bg-accent sm:block" />
+        <span className="absolute bottom-[12%] right-[10%] hidden h-2.5 w-2.5 rounded-full bg-yellow sm:block" />
+
+        <div
+          className="settle art-note w-11/12 -rotate-2 self-start rounded-lg border border-line bg-surface p-5 shadow-float"
+          style={delay(0)}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-accent">A learning note</span>
+            <BookOpen size={18} className="text-muted" />
+          </div>
+          <p className="mt-4 font-display text-art font-bold text-ink">Why do habits become automatic?</p>
+          <p className="mt-3 flex items-center gap-2 text-xs text-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Psychology, 6 min read
+          </p>
+          <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
+            <span className="text-xs text-muted">A question worth keeping</span>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-on-accent">
+              <ArrowUpRight size={15} />
+            </span>
+          </div>
+        </div>
+
+        <div
+          className="settle art-try w-10/12 rotate-1 self-end rounded-lg bg-yellow p-5 text-ink shadow-float"
+          style={delay(140)}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium">Try it yourself</span>
+            <CircleHelp size={17} />
+          </div>
+          <p className="mt-3 font-display text-art-sm font-bold">What makes a cue easy to notice?</p>
+          <div className="mt-4 flex items-center gap-2 rounded-md bg-surface/70 p-2.5 text-xs">
+            <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
+              <Check size={12} />
+            </span>
+            Your turn to think
+          </div>
+        </div>
+
+        <div
+          className="settle art-progress w-10/12 rotate-1 self-start rounded-lg bg-accent p-5 text-on-accent shadow-float"
+          style={delay(280)}
+        >
+          <span className="text-xs text-on-accent-muted">Your understanding</span>
+          <div className="mt-3 flex items-end justify-between gap-3">
+            <span className="font-display text-art-num font-bold tabular-nums">68%</span>
+            <span className="mb-1 text-xs text-on-accent-muted">Habit formation</span>
+          </div>
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface/25">
+            <div className="h-full rounded-full bg-yellow" style={{ width: '68%' }} />
+          </div>
+        </div>
+
+        <span className="art-badge hidden h-12 w-12 place-items-center rounded-full bg-coral font-display text-xl font-bold text-ink shadow-card sm:grid">
+          ?
+        </span>
+      </div>
+    </div>
+  )
+}

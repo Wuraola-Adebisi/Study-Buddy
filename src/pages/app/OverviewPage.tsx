@@ -1,6 +1,188 @@
-import {ArrowRight,ArrowUpRight,Clock3,Plus,Target} from 'lucide-react'
-import {useState} from 'react'
-import {useLearningStore} from '../../store/useLearningStore'
-import type {LearningTopic} from '../../types'
-import type {WorkspacePage} from '../../components/app/AppHeader'
-export function OverviewPage({onNavigate,onStudy}:{onNavigate:(p:WorkspacePage)=>void;onStudy:(id:number)=>void}){const topics=useLearningStore(s=>s.topics);const addTopic=useLearningStore(s=>s.addTopic);const[show,setShow]=useState(false);const[name,setName]=useState('');const[area,setArea]=useState('Something new');const create=()=>{if(!name.trim())return;addTopic(name.trim(),area);setName('');setShow(false)};return <div className="mx-auto max-w-[1180px] px-5 py-10 md:px-9 md:py-14"><div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="mb-3 text-[11px] font-bold uppercase tracking-[.17em] text-blue">Your learning, in progress</p><h1 className="font-display text-[clamp(38px,5vw,58px)] font-semibold leading-none tracking-[-2.8px]">Good to have you back.</h1><p className="mt-4 text-[14px] text-muted">What would you like to make sense of today?</p></div><button onClick={()=>setShow(true)} className="inline-flex h-12 items-center justify-center gap-2 self-start rounded-full bg-blue px-6 text-[13px] font-bold text-white"><Plus size={16}/> New learning space</button></div><section className="mb-12 grid gap-4 md:grid-cols-[1.4fr_.6fr]"><button onClick={()=>onStudy(topics[0]?.id??1)} className="group relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-[24px] bg-ink p-7 text-left text-white md:p-9"><div className="absolute -right-12 -top-16 h-64 w-64 rounded-full border border-white/15"/><div className="absolute right-12 top-9 h-36 w-36 rounded-full border border-dashed border-yellow/60"/><div className="relative"><span className="text-[10px] font-bold uppercase tracking-[.18em] text-yellow">Pick up where you left off</span><h2 className="mt-5 max-w-[460px] font-display text-[clamp(25px,3.4vw,40px)] font-semibold leading-[1.08] tracking-[-1.4px]">{topics[0]?.name??'Start a new learning space'}</h2></div><div className="relative flex items-center justify-between"><span className="text-[12px] text-white/60">Continue your last topic</span><span className="grid h-11 w-11 place-items-center rounded-full bg-yellow text-ink"><ArrowUpRight size={18}/></span></div></button><div className="flex flex-col justify-between rounded-[24px] bg-green p-7"><div className="flex items-center justify-between"><span className="text-[10px] font-bold uppercase tracking-[.16em]">A steady rhythm</span><Clock3 size={18}/></div><div><p className="font-display text-[44px] font-semibold tracking-[-2px]">4 days</p><p className="text-[12px] text-ink/65">You have made time to learn this week.</p></div><div className="flex gap-2">{['M','T','W','T','F','S','S'].map((d,i)=><span key={i} className={`grid h-7 w-7 place-items-center rounded-full text-[10px] font-bold ${i<4?'bg-ink text-white':'border border-ink/15 text-ink/45'}`}>{d}</span>)}</div></div></section><div className="mb-5 flex items-end justify-between"><div><h2 className="font-display text-[25px] font-semibold tracking-[-.8px]">Your learning spaces</h2><p className="mt-1 text-[12px] text-muted">Each one holds a subject you're working through.</p></div><button onClick={()=>onNavigate('progress')} className="hidden items-center gap-2 text-[12px] font-semibold text-blue sm:flex">See your progress <ArrowRight size={14}/></button></div><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{topics.map((topic:LearningTopic,i)=><button key={topic.id} onClick={()=>onStudy(topic.id)} className="group rounded-[21px] border border-line bg-white p-6 text-left transition hover:-translate-y-1 hover:shadow-xl"><div className="mb-8 flex items-center justify-between"><span className={`rounded-full px-3 py-1.5 text-[10px] font-bold ${['bg-blue-soft','bg-[#fbe3dc]','bg-[#f8edc9]','bg-lilac'][i%4]}`}>{topic.area}</span><ArrowUpRight size={17} className="text-muted group-hover:text-blue"/></div><h3 className="min-h-[55px] font-display text-[20px] font-semibold leading-tight">{topic.name}</h3><div className="mt-7 flex items-center justify-between text-[11px] text-muted"><span>{topic.concepts} concepts explored</span><strong className="text-ink">{topic.progress}%</strong></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-panel"><div className="h-full rounded-full bg-blue" style={{width:`${topic.progress}%`}}/></div></button>)}</div><section className="mt-12 flex flex-col justify-between gap-6 rounded-[22px] border border-line bg-white p-7 md:flex-row md:items-center md:px-9"><div className="flex items-start gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-[14px] bg-lilac"><Target size={19}/></span><div><h3 className="font-display text-[19px] font-semibold">Try putting an idea into your own words.</h3><p className="mt-1 max-w-[520px] text-[12px] leading-6 text-muted">Explaining something from memory is a useful way to find what you understand and what needs another look.</p></div></div><button onClick={()=>onStudy(topics[0]?.id??1)} className="inline-flex items-center gap-2 self-start text-[12px] font-bold text-blue">Practise an idea <ArrowRight size={15}/></button></section>{show&&<div className="fixed inset-0 z-50 grid place-items-center bg-ink/40 p-5"><form onSubmit={e=>{e.preventDefault();create()}} className="w-full max-w-[440px] rounded-[24px] bg-paper p-7 shadow-2xl"><div className="mb-6 flex items-center justify-between"><h2 className="font-display text-[24px] font-semibold">Start a learning space</h2><button type="button" onClick={()=>setShow(false)} className="text-muted">Close</button></div><label htmlFor="topic-name" className="mb-2 block text-[12px] font-semibold">What do you want to learn?</label><input id="topic-name" value={name} onChange={e=>setName(e.target.value)} required className="h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px]" placeholder="e.g. The basics of photography"/><label htmlFor="topic-area" className="mb-2 mt-5 block text-[12px] font-semibold">Area</label><input id="topic-area" value={area} onChange={e=>setArea(e.target.value)} className="h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px]"/><button className="mt-6 h-12 w-full rounded-full bg-blue text-[13px] font-bold text-white">Create learning space</button></form></div>}</div>}
+import { ArrowUpRight, CalendarDays, Plus, Target } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { useLearningStore } from '../../store/useLearningStore'
+import { toneFor } from '../../lib/tones'
+import type { LearningTopic } from '../../types'
+import type { WorkspacePage } from '../../components/app/AppHeader'
+
+export function OverviewPage({
+  onNavigate,
+  onStudy,
+}: {
+  onNavigate: (p: WorkspacePage) => void
+  onStudy: (id: number) => void
+}) {
+  const topics = useLearningStore((s) => s.topics)
+  const activeId = useLearningStore((s) => s.activeTopicId)
+  const addTopic = useLearningStore((s) => s.addTopic)
+  const [name, setName] = useState('')
+  const [area, setArea] = useState('Something new')
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const nameRef = useRef<HTMLInputElement>(null)
+
+  const lastTopic = topics.find((t) => t.id === activeId) ?? topics[0]
+
+  const openDialog = () => {
+    dialogRef.current?.showModal()
+    /* Focus the field on pointer devices only, so touch keyboards do not pop up uninvited. */
+    if (window.matchMedia('(pointer: fine)').matches) nameRef.current?.focus()
+  }
+  const closeDialog = () => dialogRef.current?.close()
+
+  const create = () => {
+    if (!name.trim()) return
+    addTopic(name.trim(), area.trim() || 'Something new')
+    setName('')
+    setArea('Something new')
+    closeDialog()
+  }
+
+  return (
+    <div className="page py-10 md:py-14">
+      <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <h1 className="page-title">Overview</h1>
+          <p className="mt-3 text-base text-muted">Continue a topic or start a new one.</p>
+        </div>
+        <button onClick={openDialog} className="btn btn-primary min-h-12 self-start">
+          <Plus size={17} aria-hidden="true" /> New learning space
+        </button>
+      </div>
+
+      <section aria-label="Continue and plan" className="mb-14 grid gap-4 md:grid-cols-[1.4fr_.6fr]">
+        <button
+          onClick={() => onStudy(lastTopic?.id ?? 1)}
+          className="surface-night group flex min-h-60 flex-col justify-between rounded-xl bg-night p-7 text-left text-on-night md:p-9"
+        >
+          <span>
+            <span className="text-sm text-on-night-muted">Pick up where you left off</span>
+            <span className="mt-4 block max-w-md font-display text-3xl font-bold md:text-4xl">
+              {lastTopic?.name ?? 'Start a new learning space'}
+            </span>
+          </span>
+          <span className="flex items-center justify-between">
+            <span className="text-sm text-on-night-muted">Continue your last topic</span>
+            <span className="grid h-11 w-11 place-items-center rounded-md bg-yellow text-ink transition-transform duration-150 group-hover:translate-x-0.5">
+              <ArrowUpRight size={19} aria-hidden="true" />
+            </span>
+          </span>
+        </button>
+
+        <button
+          onClick={() => onNavigate('plan')}
+          className="flex min-h-60 flex-col justify-between rounded-xl bg-green p-7 text-left"
+        >
+          <span className="flex items-center justify-between">
+            <span className="text-sm font-medium">This week</span>
+            <CalendarDays size={20} aria-hidden="true" />
+          </span>
+          <span>
+            <span className="block font-display text-4xl font-bold tabular-nums">2 of 4</span>
+            <span className="mt-1 block text-sm text-muted">planned sessions done</span>
+          </span>
+          <span className="text-sm font-semibold text-accent-deep">Open study plan</span>
+        </button>
+      </section>
+
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">Learning spaces</h2>
+          <p className="mt-1 text-sm text-muted">One space for each subject you are working on.</p>
+        </div>
+        <button onClick={() => onNavigate('progress')} className="link-action hidden sm:inline-flex">
+          See your progress
+        </button>
+      </div>
+
+      <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {topics.map((topic: LearningTopic, i) => (
+          <li key={topic.id}>
+            <button
+              onClick={() => onStudy(topic.id)}
+              className="card group block h-full w-full p-6 text-left transition-colors hover:border-accent"
+            >
+              <span className="flex items-center justify-between">
+                <span className={`rounded-full px-3 py-1 text-xs font-medium text-ink ${toneFor(i)}`}>{topic.area}</span>
+                <ArrowUpRight size={18} aria-hidden="true" className="text-muted group-hover:text-accent" />
+              </span>
+              <span className="mt-8 block min-h-14 font-display text-xl font-semibold leading-snug">{topic.name}</span>
+              <span className="mt-6 flex items-center justify-between text-sm text-muted">
+                <span>{topic.concepts} concepts explored</span>
+                <strong className="font-semibold tabular-nums text-ink">{topic.progress}%</strong>
+              </span>
+              <span aria-hidden="true" className="mt-3 block h-1.5 overflow-hidden rounded-full bg-panel">
+                <span className="block h-full rounded-full bg-accent" style={{ width: `${topic.progress}%` }} />
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <section className="card mt-14 flex flex-col justify-between gap-6 p-7 md:flex-row md:items-center md:px-9">
+        <div className="flex items-start gap-4">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-accent-soft text-accent">
+            <Target size={20} aria-hidden="true" />
+          </span>
+          <div>
+            <h3 className="text-xl font-bold">Practise recall</h3>
+            <p className="mt-1 max-w-xl text-sm text-muted">
+              Explain an idea from memory to find what you understand and what needs another look.
+            </p>
+          </div>
+        </div>
+        <button onClick={() => onStudy(lastTopic?.id ?? 1)} className="link-action self-start md:self-center">
+          Practise an idea
+        </button>
+      </section>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="new-space-title"
+        className="m-auto w-[calc(100%-2.5rem)] max-w-md rounded-xl bg-ground p-0 text-ink shadow-float backdrop:bg-night/50"
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            create()
+          }}
+          className="p-7"
+        >
+          <h2 id="new-space-title" className="text-2xl">
+            Start a learning space
+          </h2>
+          <label htmlFor="topic-name" className="field-label mt-6">
+            What do you want to learn?
+          </label>
+          <input
+            ref={nameRef}
+            id="topic-name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            autoComplete="off"
+            className="field"
+            placeholder="For example, the basics of photography"
+          />
+          <label htmlFor="topic-area" className="field-label mt-5">
+            Area
+          </label>
+          <input
+            id="topic-area"
+            value={area}
+            onChange={(e) => setArea(e.target.value)}
+            autoComplete="off"
+            className="field"
+          />
+          <div className="mt-7 flex gap-3">
+            <button type="submit" className="btn btn-primary min-h-12 flex-1">
+              Create learning space
+            </button>
+            <button type="button" onClick={closeDialog} className="btn btn-quiet min-h-12">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
+    </div>
+  )
+}

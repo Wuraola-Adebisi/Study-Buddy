@@ -1,7 +1,164 @@
-import {ArrowDown,ArrowRight,ArrowUpRight,Check,FileText,MessageCircleQuestion,PencilLine} from 'lucide-react'
-import {MarketingNav} from '../../components/marketing/MarketingNav'
-import {HeroArtwork} from '../../components/marketing/HeroArtwork'
-import {FeatureBand} from '../../components/marketing/FeatureBand'
-import {MarketingFooter} from '../../components/marketing/MarketingFooter'
-import {FaqSection} from '../../components/marketing/FaqSection'
-export function HomePage({onEnter}:{onEnter:()=>void}){return <div id="top" className="overflow-hidden bg-paper text-ink"><MarketingNav onEnter={onEnter}/><main><section className="mx-auto grid max-w-[1240px] items-center gap-5 px-5 pb-16 pt-12 md:min-h-[680px] md:grid-cols-[1.02fr_.98fr] md:px-10 md:pb-20 md:pt-14"><div className="relative z-10"><div className="mb-7 inline-flex items-center gap-2 rounded-full border border-ink/15 px-3 py-2 text-[11px] font-semibold text-muted"><span className="h-2 w-2 rounded-full bg-coral"/>A learning companion that keeps the thread</div><h1 className="max-w-[680px] font-display text-[clamp(52px,7.2vw,88px)] font-semibold leading-[.98] tracking-[-5px]">Make room to <span className="text-blue">understand.</span></h1><p className="mt-7 max-w-[510px] text-[16px] leading-7 text-muted md:text-[18px] md:leading-8">Bring the things you're curious about. Learn through conversation, practise what matters, and pick up right where your thinking left off.</p><div className="mt-9 flex flex-wrap items-center gap-4"><button onClick={onEnter} className="inline-flex h-[54px] items-center gap-3 rounded-full bg-blue px-7 text-[14px] font-bold text-white shadow-[0_5px_0_#243eaa] transition hover:-translate-y-0.5 hover:bg-blue-dark">Start learning <ArrowUpRight size={17}/></button><a href="#how-it-works" className="inline-flex h-[54px] items-center gap-2 px-3 text-[13px] font-semibold hover:text-blue">See how it works <ArrowDown size={15}/></a></div><div className="mt-12 flex items-center gap-4 border-t border-ink/10 pt-5"><div className="flex -space-x-2"><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-yellow text-[11px] font-bold">?</span><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-coral text-[11px] font-bold text-white">A</span><span className="grid h-8 w-8 place-items-center rounded-full border-2 border-paper bg-lilac text-[11px] font-bold">∑</span></div><p className="text-[11px] leading-5 text-muted">For the questions you have now,<br/>and the ones you haven't thought of yet.</p></div></div><div className="relative mt-4 md:mt-0"><HeroArtwork/><div className="absolute bottom-0 right-0 hidden max-w-[160px] rotate-3 rounded-xl border border-ink/10 bg-white p-3 text-[10px] leading-5 text-muted shadow-lg lg:block">A good question can open up an entirely new subject.</div></div></section><section className="bg-white"><div className="mx-auto max-w-[1240px] px-5 py-14 md:px-10 md:py-16"><div className="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between"><div><p className="mb-3 text-[11px] font-bold uppercase tracking-[.18em] text-blue">A better way to keep learning</p><h2 className="max-w-[620px] font-display text-[clamp(32px,4vw,48px)] font-semibold leading-[1.08] tracking-[-2px]">Learning is a process.<br/>Your tools should know that.</h2></div><p className="max-w-[330px] text-[14px] leading-6 text-muted">Most questions lead to more questions. Morrow helps you follow the thread instead of starting from scratch every time.</p></div><FeatureBand/></div></section><section id="how-it-works" className="mx-auto max-w-[1240px] px-5 py-20 md:px-10 md:py-28"><div className="grid gap-12 md:grid-cols-[.8fr_1.2fr]"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em] text-blue">How it works</p><h2 className="font-display text-[clamp(36px,5vw,58px)] font-semibold leading-[1.03] tracking-[-2.8px]">From first question to real understanding.</h2><p className="mt-6 max-w-[380px] text-[14px] leading-7 text-muted">You choose what matters. Morrow helps you work through it, notices what is clicking, and gives you a useful place to continue.</p><button onClick={onEnter} className="mt-8 inline-flex items-center gap-2 text-[13px] font-bold text-blue">Explore your learning space <ArrowRight size={16}/></button></div><div className="grid gap-4 sm:grid-cols-2">{[{n:'01',icon:MessageCircleQuestion,title:'Bring a question',text:'Start with a topic, a tricky concept, or something you want to understand better.',tone:'bg-blue-soft'},{n:'02',icon:FileText,title:'Add your material',text:'Use your own notes and reading as context for the things you are learning.',tone:'bg-green'},{n:'03',icon:PencilLine,title:'Think it through',text:'Switch between explanations, practice, quizzes, review, and open exploration.',tone:'bg-yellow'},{n:'04',icon:Check,title:'Build on what you know',text:'Your learning history helps future sessions pick up with context.',tone:'bg-lilac'}].map(({n,icon:Icon,title,text,tone})=><article key={n} className="rounded-[22px] border border-ink/10 bg-white p-6 md:p-7"><div className="mb-8 flex items-center justify-between"><span className="font-display text-[13px] font-bold text-muted">{n}</span><span className={`grid h-11 w-11 place-items-center rounded-[14px] ${tone}`}><Icon size={19}/></span></div><h3 className="font-display text-[21px] font-semibold tracking-[-.6px]">{title}</h3><p className="mt-2 text-[13px] leading-6 text-muted">{text}</p></article>)}</div></div></section><section id="what-you-can-do" className="bg-blue py-20 text-white md:py-28"><div className="mx-auto grid max-w-[1240px] gap-12 px-5 md:grid-cols-[.85fr_1.15fr] md:items-center md:px-10"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em] text-white/60">One subject, many ways in</p><h2 className="font-display text-[clamp(38px,5vw,62px)] font-semibold leading-[1.02] tracking-[-3px]">Not every idea clicks the same way.</h2><p className="mt-6 max-w-[410px] text-[14px] leading-7 text-white/75">Some days you need a clear explanation. Other days, you need to test yourself, revisit a difficult point, or follow a new connection.</p></div><div className="grid grid-cols-2 gap-3">{[{name:'Explain',sub:'Make the idea clear',tone:'bg-white text-ink'},{name:'Practice',sub:'Work it out',tone:'bg-yellow text-ink'},{name:'Quiz',sub:'Check what stuck',tone:'bg-coral text-white'},{name:'Review',sub:'Return to the hard bits',tone:'bg-lilac text-ink'},{name:'Explore',sub:'Follow your curiosity',tone:'bg-green text-ink'}].map((m,i)=><div key={m.name} className={`min-h-[120px] rounded-[18px] p-5 ${m.tone} ${i===4?'col-span-2':''}`}><span className="text-[10px] font-bold uppercase tracking-[.15em] opacity-60">0{i+1}</span><h3 className="mt-4 font-display text-[24px] font-semibold tracking-[-.8px]">{m.name}</h3><p className="mt-1 text-[12px] opacity-70">{m.sub}</p></div>)}</div></div></section><FaqSection/><section id="built-around-you" className="mx-auto max-w-[1240px] px-5 py-20 md:px-10 md:py-28"><div className="overflow-hidden rounded-[28px] bg-yellow px-7 py-10 md:px-14 md:py-16"><div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end"><div><p className="mb-4 text-[11px] font-bold uppercase tracking-[.18em]">Built around your learning</p><h2 className="max-w-[650px] font-display text-[clamp(38px,5vw,64px)] font-semibold leading-[1.02] tracking-[-3px]">Your curiosity has a memory. Give it somewhere to grow.</h2><p className="mt-5 max-w-[520px] text-[14px] leading-7 text-ink/70">Morrow keeps track of the subjects you return to, the ideas you have explored, and the progress you are making. Your next session starts with context.</p></div><button onClick={onEnter} className="inline-flex h-[54px] items-center justify-center gap-3 rounded-full bg-ink px-7 text-[14px] font-bold text-white hover:bg-blue">Make a start <ArrowUpRight size={17}/></button></div></div></section></main><MarketingFooter onEnter={onEnter}/></div>}
+import { BookOpen, CircleHelp, Compass, PencilLine, RotateCcw } from 'lucide-react'
+import { MarketingNav } from '../../components/marketing/MarketingNav'
+import { HeroArtwork } from '../../components/marketing/HeroArtwork'
+import { MarketingFooter } from '../../components/marketing/MarketingFooter'
+import { FaqSection } from '../../components/marketing/FaqSection'
+
+const sampleSpaces = [
+  { name: 'Understanding JavaScript', progress: 42 },
+  { name: 'The psychology of habits', progress: 26 },
+  { name: 'Visual composition', progress: 18 },
+]
+
+const steps = [
+  { title: 'Start a learning space', text: 'Name the topic you want to learn. Each topic gets its own space.' },
+  { title: 'Ask in the study room', text: 'Type a question or describe what you already understand.' },
+  { title: 'Change how you study', text: 'Switch between explaining, practice, quizzes, review and exploring.' },
+  { title: 'Come back to it', text: 'Your progress and plan are saved, so the next session starts where you stopped.' },
+]
+
+const modes = [
+  { name: 'Explain', text: 'Breaks an idea into smaller parts.', icon: BookOpen, tone: 'bg-surface' },
+  { name: 'Practice', text: 'Gives you an example to work through.', icon: PencilLine, tone: 'bg-yellow' },
+  { name: 'Quiz', text: 'Asks you questions from memory.', icon: CircleHelp, tone: 'bg-coral' },
+  { name: 'Review', text: 'Goes back over what you covered.', icon: RotateCcw, tone: 'bg-lilac' },
+  { name: 'Explore', text: 'Follows related questions.', icon: Compass, tone: 'bg-green' },
+]
+
+export function HomePage({ onEnter }: { onEnter: () => void }) {
+  return (
+    <div id="top" className="bg-ground text-ink">
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <MarketingNav onEnter={onEnter} />
+      <main id="main">
+        <section className="page grid items-center gap-12 pb-section pt-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-8 lg:pt-16">
+          <div>
+            <h1 className="max-w-2xl font-display text-display font-bold">
+              A study companion that remembers where you stopped.
+            </h1>
+            <p className="mt-6 max-w-lg text-lg text-muted">
+              Pick a topic and ask questions. Morrow explains, sets practice and quizzes you, and keeps your progress
+              so the next session starts with context.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button onClick={onEnter} className="btn btn-primary btn-lg">
+                Start learning
+              </button>
+              <a href="#how-it-works" className="btn btn-quiet btn-lg">
+                How it works
+              </a>
+            </div>
+            <p className="mt-6 text-sm text-muted">Your learning spaces are saved in this browser.</p>
+          </div>
+          <HeroArtwork />
+        </section>
+
+        <section className="page pb-section">
+          <h2 className="max-w-xl text-heading font-bold">Everything for a topic stays in one place.</h2>
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            <article className="rounded-xl bg-accent p-7 text-on-accent lg:col-span-2 lg:p-9">
+              <h3 className="text-2xl font-bold">Learning spaces</h3>
+              <p className="mt-2 max-w-md text-base text-on-accent-muted">
+                One space per subject. The conversation, progress and materials for it stay together.
+              </p>
+              <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+                {sampleSpaces.map((space) => (
+                  <li key={space.name} className="rounded-md bg-surface p-4 text-ink">
+                    <p className="min-h-12 text-sm font-semibold">{space.name}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <div aria-hidden="true" className="h-1.5 flex-1 overflow-hidden rounded-full bg-panel">
+                        <div className="h-full rounded-full bg-accent" style={{ width: `${space.progress}%` }} />
+                      </div>
+                      <span className="text-xs font-semibold tabular-nums">{space.progress}%</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article className="flex flex-col rounded-xl bg-yellow p-7 lg:p-9">
+              <h3 className="text-2xl font-bold">Study room</h3>
+              <p className="mt-2 text-base">Ask a question, or describe an idea in your own words.</p>
+              <div aria-hidden="true" className="mt-6 flex flex-1 flex-col justify-end gap-2 text-sm">
+                <p className="ml-auto max-w-[85%] rounded-md rounded-br-sm bg-ink px-3 py-2 text-on-night">
+                  Why does a loop need an exit condition?
+                </p>
+                <p className="max-w-[85%] rounded-md rounded-bl-sm bg-surface px-3 py-2">
+                  Let’s break it into smaller parts.
+                </p>
+              </div>
+            </article>
+            <article className="rounded-xl bg-lilac p-7 lg:p-9">
+              <h3 className="text-2xl font-bold">Progress</h3>
+              <p className="mt-2 text-base text-muted">A percentage and a concept count for every space.</p>
+            </article>
+            <article className="rounded-xl bg-green p-7 lg:p-9">
+              <h3 className="text-2xl font-bold">Weekly plan</h3>
+              <p className="mt-2 text-base text-muted">A few short sessions each week. Missing one changes nothing else.</p>
+            </article>
+            <article className="rounded-xl bg-coral-soft p-7 lg:p-9">
+              <h3 className="text-2xl font-bold">Materials shelf</h3>
+              <p className="mt-2 text-base text-muted">A place for notes and reading next to the topic. File upload is not connected yet.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="how-it-works" className="bg-surface">
+          <div className="page py-section">
+            <h2 className="max-w-xl text-heading font-bold">How it works</h2>
+            <ol className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map(({ title, text }, i) => (
+                <li key={title} className="border-t-2 border-ink pt-5">
+                  <span className="font-display text-4xl font-bold text-accent">{i + 1}</span>
+                  <h3 className="mt-3 text-xl font-bold">{title}</h3>
+                  <p className="mt-2 text-base text-muted">{text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section id="modes" className="surface-night bg-accent py-section text-on-accent">
+          <div className="page">
+            <h2 className="max-w-xl text-heading font-bold">Study the same topic five ways.</h2>
+            <p className="mt-4 max-w-lg text-base text-on-accent-muted">
+              Some days you need an explanation. Other days you need to test yourself.
+            </p>
+            <ul className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+              {modes.map(({ name, text, icon: Icon, tone }, i) => (
+                <li
+                  key={name}
+                  className={`flex min-h-44 flex-col justify-between rounded-lg p-5 text-ink ${tone} ${
+                    i === modes.length - 1 ? 'col-span-2 md:col-span-1' : ''
+                  }`}
+                >
+                  <Icon size={22} aria-hidden="true" />
+                  <div>
+                    <h3 className="text-xl font-bold">{name}</h3>
+                    <p className="mt-1 text-sm">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <FaqSection />
+
+        <section className="page pb-section">
+          <div className="flex flex-col gap-6 rounded-xl bg-yellow px-7 py-10 md:flex-row md:items-center md:justify-between md:px-12 md:py-14">
+            <div>
+              <h2 className="max-w-xl text-heading font-bold">Start your first learning space.</h2>
+              <p className="mt-3 max-w-lg text-base">Pick a topic and ask the first question.</p>
+            </div>
+            <button onClick={onEnter} className="btn btn-ink btn-lg shrink-0 self-start md:self-auto">
+              Start learning
+            </button>
+          </div>
+        </section>
+      </main>
+      <MarketingFooter onEnter={onEnter} />
+    </div>
+  )
+}
