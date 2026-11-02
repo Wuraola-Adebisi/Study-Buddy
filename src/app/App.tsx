@@ -11,19 +11,43 @@ import { PrivacyPage } from '../pages/marketing/PrivacyPage'
 import { TermsPage } from '../pages/marketing/TermsPage'
 import { useLearningStore } from '../store/useLearningStore'
 
+type LegalPage = 'privacy' | 'terms' | null
+
+function getLegalPageFromHash(): LegalPage {
+  if (window.location.hash === '#privacy') return 'privacy'
+  if (window.location.hash === '#terms') return 'terms'
+  return null
+}
+
 export default function App() {
   const [inWorkspace, setInWorkspace] = useState(false)
   const [page, setPage] = useState<WorkspacePage>('overview')
-  const [legalPage, setLegalPage] = useState<'privacy' | 'terms' | null>(null)
+  const [legalPage, setLegalPage] = useState<LegalPage>(getLegalPageFromHash)
   const setActiveTopic = useLearningStore((s) => s.setActiveTopic)
   const activeTopicId = useLearningStore((s) => s.activeTopicId)
   const mainRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (!inWorkspace) return
+    const syncLegalPage = () => setLegalPage(getLegalPageFromHash())
+    window.addEventListener('popstate', syncLegalPage)
+    window.addEventListener('hashchange', syncLegalPage)
+    return () => {
+      window.removeEventListener('popstate', syncLegalPage)
+      window.removeEventListener('hashchange', syncLegalPage)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!inWorkspace || legalPage) return
     window.scrollTo({ top: 0 })
     mainRef.current?.focus({ preventScroll: true })
-  }, [page, inWorkspace])
+  }, [page, inWorkspace, legalPage])
+
+  const openLegalPage = (nextPage: Exclude<LegalPage, null>) => {
+    window.history.pushState({ morrowLegalPage: nextPage }, '', `#${nextPage}`)
+    setLegalPage(nextPage)
+    window.scrollTo({ top: 0 })
+  }
 
   const openStudy = (id: number) => {
     setActiveTopic(id)
@@ -32,7 +56,7 @@ export default function App() {
   }
 
   if (legalPage) {
-    const onBack = () => setLegalPage(null)
+    const onBack = () => window.history.back()
     return legalPage === 'privacy' ? <PrivacyPage onBack={onBack} /> : <TermsPage onBack={onBack} />
   }
 
@@ -43,8 +67,8 @@ export default function App() {
           setPage('overview')
           setInWorkspace(true)
         }}
-        onPrivacy={() => setLegalPage('privacy')}
-        onTerms={() => setLegalPage('terms')}
+        onPrivacy={() => openLegalPage('privacy')}
+        onTerms={() => openLegalPage('terms')}
       />
     )
   }
@@ -64,8 +88,8 @@ export default function App() {
       <footer className="border-t border-line px-5 py-8 text-center text-xs text-muted">
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <span>© {new Date().getFullYear()} Morrow</span>
-          <button type="button" onClick={() => setLegalPage('privacy')} className="min-h-9 hover:text-accent">Privacy policy</button>
-          <button type="button" onClick={() => setLegalPage('terms')} className="min-h-9 hover:text-accent">Terms of service</button>
+          <button type="button" onClick={() => openLegalPage('privacy')} className="min-h-9 hover:text-accent">Privacy policy</button>
+          <button type="button" onClick={() => openLegalPage('terms')} className="min-h-9 hover:text-accent">Terms of service</button>
           <a href="mailto:hello@learnwithmorrow.com" className="inline-flex min-h-9 items-center hover:text-accent">Contact</a>
         </div>
       </footer>
