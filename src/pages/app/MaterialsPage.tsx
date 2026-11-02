@@ -11,7 +11,6 @@ export function MaterialsPage() {
     <div className="page py-10 md:py-14">
       <h1 className="page-title">Materials</h1>
       <p className="mt-3 max-w-xl text-base text-muted">Keep useful notes and reading close to the topics you are learning.</p>
-      <p className="mt-2 text-sm text-muted">These are sample materials for the beta. Uploading personal files is not available yet.</p>
 
       <div className="my-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative max-w-md flex-1">
