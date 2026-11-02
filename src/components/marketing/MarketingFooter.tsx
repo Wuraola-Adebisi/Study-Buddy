@@ -6,7 +6,7 @@ const explore = [
   { href: '#faq', label: 'FAQ' },
 ]
 
-export function MarketingFooter({ onEnter }: { onEnter: () => void }) {
+export function MarketingFooter({ onEnter, onPrivacy, onTerms }: { onEnter: () => void; onPrivacy: () => void; onTerms: () => void }) {
   return (
     <footer className="surface-night bg-night text-on-night">
       <div className="page py-14 md:py-16">
@@ -33,9 +33,14 @@ export function MarketingFooter({ onEnter }: { onEnter: () => void }) {
             </ul>
           </nav>
         </div>
-        <p className="mt-12 border-t border-on-night/15 pt-6 text-xs text-on-night-muted">
-          © {new Date().getFullYear()} Morrow
-        </p>
+        <div className="mt-12 flex flex-col gap-4 border-t border-on-night/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-on-night-muted">© {new Date().getFullYear()} Morrow</p>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-on-night-muted">
+            <button type="button" onClick={onPrivacy} className="min-h-9 hover:text-yellow">Privacy policy</button>
+            <button type="button" onClick={onTerms} className="min-h-9 hover:text-yellow">Terms of service</button>
+            <a href="mailto:hello@learnwithmorrow.com" className="inline-flex min-h-9 items-center hover:text-yellow">Contact</a>
+          </nav>
+        </div>
       </div>
     </footer>
   )
