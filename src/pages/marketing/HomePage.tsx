@@ -25,7 +25,7 @@ const modes = [
   { name: 'Explore', text: 'Follows related questions.', icon: Compass, tone: 'bg-green' },
 ]
 
-export function HomePage({ onEnter }: { onEnter: () => void }) {
+export function HomePage({ onEnter, onPrivacy, onTerms }: { onEnter: () => void; onPrivacy: () => void; onTerms: () => void }) {
   return (
     <div id="top" className="bg-ground text-ink">
       <a href="#main" className="skip-link">
