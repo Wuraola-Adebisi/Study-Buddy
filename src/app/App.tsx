@@ -62,7 +62,12 @@ export default function App() {
         {page === 'settings' && <SettingsPage />}
       </main>
       <footer className="border-t border-line px-5 py-8 text-center text-xs text-muted">
-        Morrow
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <span>© {new Date().getFullYear()} Morrow</span>
+          <button type="button" onClick={() => setLegalPage('privacy')} className="min-h-9 hover:text-accent">Privacy policy</button>
+          <button type="button" onClick={() => setLegalPage('terms')} className="min-h-9 hover:text-accent">Terms of service</button>
+          <a href="mailto:hello@learnwithmorrow.com" className="inline-flex min-h-9 items-center hover:text-accent">Contact</a>
+        </div>
       </footer>
     </div>
   )
