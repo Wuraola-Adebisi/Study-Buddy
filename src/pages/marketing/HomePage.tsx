@@ -157,7 +157,7 @@ export function HomePage({ onEnter, onPrivacy, onTerms }: { onEnter: () => void;
           </div>
         </section>
       </main>
-      <MarketingFooter onEnter={onEnter} />
+      <MarketingFooter onEnter={onEnter} onPrivacy={onPrivacy} onTerms={onTerms} />
     </div>
   )
 }
