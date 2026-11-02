@@ -7,16 +7,18 @@ import { MaterialsPage } from '../pages/app/MaterialsPage'
 import { ProgressPage } from '../pages/app/ProgressPage'
 import { PlanPage } from '../pages/app/PlanPage'
 import { SettingsPage } from '../pages/app/SettingsPage'
+import { PrivacyPage } from '../pages/marketing/PrivacyPage'
+import { TermsPage } from '../pages/marketing/TermsPage'
 import { useLearningStore } from '../store/useLearningStore'
 
 export default function App() {
   const [inWorkspace, setInWorkspace] = useState(false)
   const [page, setPage] = useState<WorkspacePage>('overview')
+  const [legalPage, setLegalPage] = useState<'privacy' | 'terms' | null>(null)
   const setActiveTopic = useLearningStore((s) => s.setActiveTopic)
   const activeTopicId = useLearningStore((s) => s.activeTopicId)
   const mainRef = useRef<HTMLElement>(null)
 
-  /* Each workspace page starts at the top, with focus moved to the content. */
   useEffect(() => {
     if (!inWorkspace) return
     window.scrollTo({ top: 0 })
@@ -29,6 +31,11 @@ export default function App() {
     setInWorkspace(true)
   }
 
+  if (legalPage) {
+    const onBack = () => setLegalPage(null)
+    return legalPage === 'privacy' ? <PrivacyPage onBack={onBack} /> : <TermsPage onBack={onBack} />
+  }
+
   if (!inWorkspace) {
     return (
       <HomePage
@@ -36,15 +43,15 @@ export default function App() {
           setPage('overview')
           setInWorkspace(true)
         }}
+        onPrivacy={() => setLegalPage('privacy')}
+        onTerms={() => setLegalPage('terms')}
       />
     )
   }
 
   return (
     <div className="min-h-screen bg-ground text-ink">
-      <a href="#workspace-main" className="skip-link">
-        Skip to content
-      </a>
+      <a href="#workspace-main" className="skip-link">Skip to content</a>
       <AppHeader page={page} onNavigate={setPage} onExit={() => setInWorkspace(false)} />
       <main id="workspace-main" ref={mainRef} tabIndex={-1} className="focus:outline-none">
         {page === 'overview' && <OverviewPage onNavigate={setPage} onStudy={openStudy} />}
