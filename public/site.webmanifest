@@ -1,7 +1,7 @@
 {
   "name": "Morrow",
   "short_name": "Morrow",
-  "description": "A study companion for learning at your own pace.",
+  "description": "A learning platform for organising topics, practising ideas and reviewing what you learn.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f4f5f0",
