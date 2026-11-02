@@ -56,7 +56,14 @@ export default function App() {
   }
 
   if (legalPage) {
-    const onBack = () => window.history.back()
+    const onBack = () => {
+      if (window.history.state?.morrowLegalPage) {
+        window.history.back()
+      } else {
+        window.history.replaceState({}, '', window.location.pathname + window.location.search)
+        setLegalPage(null)
+      }
+    }
     return legalPage === 'privacy' ? <PrivacyPage onBack={onBack} /> : <TermsPage onBack={onBack} />
   }
 
