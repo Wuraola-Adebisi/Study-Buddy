@@ -36,11 +36,11 @@ export function HomePage({ onEnter, onPrivacy, onTerms }: { onEnter: () => void;
         <section className="page grid items-center gap-12 pb-section pt-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-8 lg:pt-16">
           <div>
             <h1 className="max-w-2xl font-display text-display font-bold">
-              A study companion that remembers where you stopped.
+              A learning platform that helps you keep moving forward.
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted">
-              Pick a topic and ask questions. Morrow explains, sets practice and quizzes you, and keeps your progress
-              so the next session starts with context.
+              Organise the topics you want to learn, work through ideas, practise and review. Morrow keeps your learning activity
+              together so you can return to where you left off.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <button onClick={onEnter} className="btn btn-primary btn-lg">
