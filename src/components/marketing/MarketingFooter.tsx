@@ -13,10 +13,6 @@ export function MarketingFooter({ onEnter, onPrivacy, onTerms }: { onEnter: () =
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
           <div className="max-w-sm">
             <Wordmark />
-            <p className="mt-4 text-sm text-on-night-muted">
-              Morrow is a front-end prototype. Study replies are simulated, and your spaces are saved in this browser
-              only.
-            </p>
             <button onClick={onEnter} className="btn btn-yellow mt-6">
               Start learning
             </button>
