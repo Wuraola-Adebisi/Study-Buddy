@@ -1,0 +1,17 @@
+{
+  "name": "Morrow",
+  "short_name": "Morrow",
+  "description": "A study companion for learning at your own pace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f5f0",
+  "theme_color": "#202f91",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
